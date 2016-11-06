@@ -1,0 +1,144 @@
+.pull-right
+{
+    float: right;
+}
+
+.pull-right:after
+{
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.clearfix
+{
+    clear: both;
+}
+
+.navbar
+{
+    height: 40px;
+    background-color: #101010;
+    color: #fff;
+}
+
+.navbar-fixed
+{
+    position: fixed;
+    top:   0;
+    left:  0;
+    right: 0;
+    z-index: 999999;
+    width: 100%;
+}
+
+.navbar .logo
+{
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar .logo:active,
+.navbar .logo:hover
+{
+    color: #bbb;
+    text-decoration: none;
+}
+
+.navbar .navmenu
+{
+    height: 40px;
+    line-height: 40px;
+    display: block;
+}
+
+.navbar .navmenu li
+{
+    padding: 5px 2px;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+}
+
+.navbar .navmenu li a
+{
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    background: transparent;
+}
+
+.navbar .navmenu li a:active,
+.navbar .navmenu li a:hover
+{
+    color: #ddd;
+    text-decoration: none;
+    background: #444;
+}
+
+.container
+{
+    margin: 0 auto;
+    width: 960px;
+}
+
+.container-margin
+{
+    margin-top: 60px !important;
+}
+
+.widget-status
+{
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.widget-status:after
+{
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.widget-status .widget-status-img
+{
+    float: left;
+    margin-right: 20px;
+    height: 60px;
+    width: 60px;
+    background: #eee;
+}
+
+.widget-status .widget-status-img img
+{
+    width: 60px;
+    height: 60px;
+    display: block;
+}
+
+.widget-status .widget-status-form
+{
+    margin-left: 80px;
+    padding: 10px;
+    background: #eee;
+}
+
+.widget-status .widget-status-form .form-space
+{
+    margin-bottom: 10px;
+}
+
+.widget-status .widget-status-form textarea
+{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 40px;
+    resize: vertical;
+}
