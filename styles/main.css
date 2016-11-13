@@ -47,7 +47,8 @@
     text-decoration: none;
 }
 
-.navbar .navmenu
+.navbar .navmenu,
+.navbar .navmenu ul
 {
     height: 40px;
     line-height: 40px;
