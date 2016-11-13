@@ -1,0 +1,32 @@
+.widget-login
+{
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 500px;
+}
+
+.widget-login .widget-login-title
+{
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: 700;
+}
+
+.widget-login .widget-login-form
+{
+    padding: 10px;
+    background: #eee;
+}
+
+label
+{
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 700;
+}
+
+.input-control
+{
+    display: block;
+    width: 100%;
+}

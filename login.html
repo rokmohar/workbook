@@ -5,9 +5,54 @@
     <title>WorkBook</title>
 
     <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/login.css" />
 </head>
 <body>
+<header class="navbar navbar-fixed">
+    <div class="container">
+        <nav class="navmenu pull-right">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="logo">WorkBook</a>
+        <div class="clearfix"></div>
+    </div>
+</header>
 
+<div class="container container-margin">
+    <form class="widget-login">
+        <div class="widget-login-title">Login</div>
+        <div class="widget-login-form">
+            <form method="POST" action="#">
+                <div class="form-space">
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" id="email" class="input-control" placeholder="Enter your email" />
+                </div>
+
+                <div class="form-space">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="input-control" placeholder="Enter your password" />
+                </div>
+
+                <div>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <a href="#">About</a> |
+        <a href="#">Disclaimer</a> |
+        <a href="#">Contact</a>
+    </div>
+</footer>
 </body>
 </html>
