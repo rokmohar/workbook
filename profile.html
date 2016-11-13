@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WorkBook</title>
+
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+</head>
+
+<body>
+<header class="navbar navbar-fixed">
+    <div class="container">
+        <nav class="navmenu pull-right">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="logo">WorkBook</a>
+        <div class="clearfix"></div>
+    </div>
+</header>
+
+<div class="container container-margin">
+    <article class="widget-status">
+        <div class="widget-status-img">
+            <img src="./images/avatars/simpson.jpg" width="60" height="60 " />
+        </div>
+        <form method="POST" action="#" class="widget-status-form">
+            <div class="form-space">
+                <textarea name="status">What is on your mind?</textarea>
+            </div>
+            <div>
+                <button type="submit" class="pull-right">Submit</button>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+        <div class="clearfix"></div>
+    </article>
+
+    <article class="widget-post">
+        <div class="widget-post-img">
+            <img src="./images/avatars/simpson.jpg" width="60" height="60 " />
+        </div>
+        <div class="widget-post-container">
+            <div class="widget-post-title">
+                <a href="#">Rok Mohar</a> shared a <a href="#">video</a>.
+            </div>
+            <div class="widget-post-content">
+                <iframe width="854" height="480" src="https://www.youtube.com/embed/ryuhvZciER0" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </article>
+
+    <article class="widget-post">
+        <div class="widget-post-img">
+            <img src="./images/avatars/john_cena.png" width="60" height="60 " />
+        </div>
+        <div class="widget-post-container">
+            <div class="widget-post-title">
+                <a href="#">John Cena</a> shared a <a href="#">photo</a>.
+            </div>
+            <div class="widget-post-content">
+                <img src="./images/posts/donald_trump.jpg" alt="John Cena" width="854" height="480" />
+            </div>
+        </div>
+    </article>
+
+    <article class="widget-post">
+        <div class="widget-post-img">
+            <img src="./images/avatars/hillary_clinton.jpg" width="60" height="60 " />
+        </div>
+        <div class="widget-post-container">
+            <div class="widget-post-title">
+                <a href="#">Hillary Clinton</a> shared a <a href="#">post</a>.
+            </div>
+            <div class="widget-post-content">
+                Donald Trump is the best choice for the president! <a href="#">#TrumpPence2016</a> <a href="#">#MAGA</a>
+            </div>
+        </div>
+    </article>
+</div>
+</body>
+</html>
