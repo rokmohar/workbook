@@ -93,20 +93,23 @@
     margin-top: 60px !important;
 }
 
-.widget-status
+.widget-status,
+.widget-post
 {
     margin-bottom: 20px;
     width: 100%;
 }
 
-.widget-status:after
+.widget-status:after,
+.widget-post:after
 {
     content: '';
     display: table;
     clear: both;
 }
 
-.widget-status .widget-status-img
+.widget-status .widget-status-img,
+.widget-post .widget-post-img
 {
     float: left;
     margin-right: 20px;
@@ -115,14 +118,16 @@
     background: #eee;
 }
 
-.widget-status .widget-status-img img
+.widget-status .widget-status-img img,
+.widget-post .widget-post-img img
 {
     width: 60px;
     height: 60px;
     display: block;
 }
 
-.widget-status .widget-status-form
+.widget-status .widget-status-form,
+.widget-post .widget-post-container
 {
     margin-left: 80px;
     padding: 10px;
@@ -141,4 +146,34 @@
     width: 100%;
     min-height: 40px;
     resize: vertical;
+}
+
+.widget-post .widget-post-title {
+    margin-bottom: 20px;
+}
+
+.widget-post .widget-post-title a {
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.widget-post .widget-post-title a:active,
+.widget-post .widget-post-title a:hover {
+    color: #000;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.widget-post .widget-post-content a {
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.widget-post .widget-post-content a:active,
+.widget-post .widget-post-content a:hover {
+    color: #000;
+    font-weight: 700;
+    text-decoration: underline;
 }

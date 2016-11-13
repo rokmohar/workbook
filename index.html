@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <title>WorkBook</title>
@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div class="navbar navbar-fixed">
+    <nav class="navbar navbar-fixed">
         <div class="container">
             <ul class="navmenu pull-right">
                 <li><a href="#">Home</a></li>
@@ -19,25 +19,65 @@
             <a href="#" class="logo">WorkBook</a>
             <div class="clearfix"></div>
         </div>
-    </div>
+    </nav>
 
     <div class="container container-margin">
         <div class="widget-status">
             <div class="widget-status-img">
-                <img src="" width="60" height="60 " />
+                <img src="./images/avatars/simpson.jpg" width="60" height="60 " />
             </div>
-            <div class="widget-status-form">
-                <form method="POST" action="#">
-                    <div class="form-space">
-                        <textarea name="status">What is on your mind?</textarea>
-                    </div>
-                    <div>
-                        <button type="submit" class="pull-right">Submit</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </form>
-            </div>
+            <form method="POST" action="#" class="widget-status-form">
+                <div class="form-space">
+                    <textarea name="status">What is on your mind?</textarea>
+                </div>
+                <div>
+                    <button type="submit" class="pull-right">Submit</button>
+                </div>
+                <div class="clearfix"></div>
+            </form>
             <div class="clearfix"></div>
+        </div>
+
+        <div class="widget-post">
+            <div class="widget-post-img">
+                <img src="./images/avatars/simpson.jpg" width="60" height="60 " />
+            </div>
+            <div class="widget-post-container">
+                <div class="widget-post-title">
+                    <a href="#">Rok Mohar</a> shared a <a href="#">video</a>.
+                </div>
+                <div class="widget-post-content">
+                    <iframe width="854" height="480" src="https://www.youtube.com/embed/ryuhvZciER0" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget-post">
+            <div class="widget-post-img">
+                <img src="./images/avatars/simpson.jpg" width="60" height="60 " />
+            </div>
+            <div class="widget-post-container">
+                <div class="widget-post-title">
+                    <a href="#">John Cena</a> shared a <a href="#">photo</a>.
+                </div>
+                <div class="widget-post-content">
+                    <img src="./images/posts/donald_trump.jpg" alt="John Cena" width="854" height="480" />
+                </div>
+            </div>
+        </div>
+
+        <div class="widget-post">
+            <div class="widget-post-img">
+                <img src="./images/avatars/simpson.jpg" width="60" height="60 " />
+            </div>
+            <div class="widget-post-container">
+                <div class="widget-post-title">
+                    <a href="#">Hillary Clinton</a> shared a <a href="#">post</a>.
+                </div>
+                <div class="widget-post-content">
+                    Donald Trump is the best choice for the president! <a href="#">#TrumpPence2016</a> <a href="#">#MAGA</a>
+                </div>
+            </div>
         </div>
     </div>
 </body>
