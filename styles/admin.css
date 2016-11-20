@@ -1,0 +1,11 @@
+.stats-box {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #eee;
+    text-align: center;
+    float: left;
+}
+
+.stats-box .content {
+    padding: 10px;
+}

@@ -125,7 +125,7 @@ aside {
 .widget-post,
 .widget-block
 {
-    margin-bottom: 0;
+    margin-bottom: 20px;
 }
 
 .widget-block {
@@ -223,5 +223,18 @@ aside {
 .side-menu li {
     margin: 0;
     padding: 0;
+    display: block;
+}
+
+h1 {
+    margin-bottom: 20px;
+    display: block;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 20px;
     display: block;
 }
