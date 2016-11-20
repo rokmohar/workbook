@@ -1,26 +1,3 @@
-.pull-right
-{
-    float: right;
-}
-
-.clearfix:before,
-.clearfix:after {
-    content: " ";
-    display: table;
-}
-
-.clearfix:after {
-    clear: both;
-}
-
-/**
- * For IE 6/7 only
- * Include this rule to trigger hasLayout and contain floats.
- */
-.clearfix {
-    *zoom: 1;
-}
-
 .form-space
 {
     margin-bottom: 10px;
@@ -44,8 +21,7 @@ footer {
     position: fixed;
     top:   0;
     left:  0;
-    right: 0;
-    z-index: 999999;
+    z-index: 9999;
     width: 100%;
 }
 
@@ -64,20 +40,26 @@ footer {
     text-decoration: none;
 }
 
+.navbar .navmenu {
+    margin-left: auto;
+}
+
 .navbar .navmenu,
 .navbar .navmenu ul
 {
-    height: 40px;
-    line-height: 40px;
     display: block;
+}
+
+.navbar .navmenu ul {
+    margin: 5px 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 }
 
 .navbar .navmenu li
 {
-    padding: 5px 2px;
-    float: left;
-    height: 30px;
-    line-height: 30px;
+    margin: 0 5px;
     display: block;
 }
 
@@ -104,6 +86,10 @@ footer {
 {
     margin: 0 auto;
     width: 960px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .container-margin
@@ -113,12 +99,12 @@ footer {
 
 aside {
     width: 200px;
-    float: left;
 }
 
 .content {
-    margin-left: 20px;
-    float: left;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
 }
 
 .widget-status,
@@ -128,10 +114,21 @@ aside {
     margin-bottom: 20px;
 }
 
+
+.widget-status,
+.widget-post {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
 .widget-block {
     margin-bottom: 20px;
     padding: 10px;
     background: #eee;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 }
 
 
@@ -145,7 +142,6 @@ aside {
 .widget-status .widget-status-img,
 .widget-post .widget-post-img
 {
-    float: left;
     margin-right: 20px;
     height: 60px;
     width: 60px;
@@ -163,9 +159,12 @@ aside {
 .widget-status .widget-status-form,
 .widget-post .widget-post-container
 {
-    margin-left: 80px;
+    width: 100%;
     padding: 10px;
     background: #eee;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
 }
 
 .widget-status .widget-status-form textarea
