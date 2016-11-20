@@ -3,19 +3,22 @@
     float: right;
 }
 
-.clearfix
-{
-    display: inline-block;
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
 }
 
-.clearfix:after
-{
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: " ";
+.clearfix:after {
     clear: both;
-    height: 0;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.clearfix {
+    *zoom: 1;
 }
 
 .form-space
@@ -114,8 +117,8 @@ aside {
 }
 
 .content {
-    margin-left: 220px;
-    flaot: left;
+    margin-left: 20px;
+    float: left;
 }
 
 .widget-status,
@@ -123,7 +126,6 @@ aside {
 .widget-block
 {
     margin-bottom: 0;
-    width: 100%;
 }
 
 .widget-block {
@@ -215,4 +217,11 @@ aside {
     margin-bottom: 20px;
     font-weight: bold;
     text-align: center;
+}
+
+.side-menu,
+.side-menu li {
+    margin: 0;
+    padding: 0;
+    display: block;
 }
