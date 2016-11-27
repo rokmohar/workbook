@@ -287,3 +287,96 @@ h1 {
     background: #4EA2B3;
     cursor: pointer;
 }
+
+.stats-boxes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.stats-box {
+    margin: 0 1%;
+    width: 31%;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    float: left;
+}
+
+.stats-box .content {
+    padding: 20px 10px;
+    height: 46px;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.stats-box h1 {
+    margin: 0 0 10px;
+    padding: 0;
+    display: block;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 700;
+}
+
+.table-widget {
+    background: #ffffff;
+    border: 1px solid #e5e6e9;
+    border-radius: 4px;
+}
+
+.table-widget th,
+.table-widget td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #e5e6e9;
+}
+
+.table-widget th {
+    font-weight: 700;
+}
+
+.side-menu a {
+    color: #348899;
+    text-decoration: none;
+}
+
+.side-menu a:active,
+.side-menu a:hover {
+    color: #348899;
+    text-decoration: underline;
+}
+.widget-login
+{
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 500px;
+}
+
+.widget-login .widget-login-title
+{
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: 700;
+}
+
+.widget-login .widget-login-form
+{
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #e5e6e9;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+label
+{
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 700;
+}
