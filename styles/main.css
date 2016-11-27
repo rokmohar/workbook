@@ -109,16 +109,9 @@ footer {
     flex-wrap: wrap;
 }
 
-/*aside {
+aside {
     width: 200px;
     margin-right: 20px;
-}*/
-
-@media screen
-and (max-width: 413px) {
-    aside {
-        display: none;
-    }
 }
 
 .content {
@@ -235,8 +228,9 @@ and (max-width: 413px) {
 }
 
 .widget-post .widget-post-content img {
-    width: 100%    !important;
-    height: auto   !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block;
 }
 
 iframe {
