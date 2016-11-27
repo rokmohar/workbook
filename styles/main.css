@@ -106,12 +106,26 @@ footer {
 .container-layout {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 aside {
     width: 200px;
     margin-right: 20px;
+}
+
+@media screen and (max-width: 613px) {
+    .container-layout {
+        flex-direction: column;
+    }
+
+    aside {
+        width: 100%;
+    }
+
+    .profile-avatar {
+        display: none;
+    }
 }
 
 .content {
@@ -228,13 +242,8 @@ and (max-width: 413px) {
 }
 
 .widget-post .widget-post-content img {
-    width: 100% !important;
-    height: auto !important;
-    display: block;
-}
-
-iframe {
-    max-width: 100% !important;
+    max-width: 100%;
+    height: auto;
 }
 
 .profile-avatar {
@@ -358,11 +367,18 @@ h1 {
     color: #348899;
     text-decoration: underline;
 }
+
 .widget-login
 {
     margin: 0 auto;
     margin-bottom: 20px;
     width: 500px;
+}
+
+@media screen and (max-width: 613px) {
+    .widget-login {
+        width: 100%;
+    }
 }
 
 .widget-login .widget-login-title
