@@ -27,17 +27,18 @@
 
 <div class="container container-margin">
     <aside>
-        <div class="profile-name">
-            Rok Mohar
-        </div>
-
         <div class="widget-block">
-            <ul class="side-menu    ">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Users</a></li>
-                <li><a href="#">Admins</a></li>
-                <li><a href="#">Reports</a></li>
-            </ul>
+            <div class="widget-block-title">
+                Navigation
+            </div>
+            <div class="widget-block-content">
+                <ul class="side-menu">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Users</a></li>
+                    <li><a href="#">Admins</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+            </div>
         </div>
     </aside>
 
@@ -45,116 +46,113 @@
         <div class="stats-boxes">
             <div class="stats-box">
                 <div class="content">
-                    Users: 3
+                    <h1>Users</h1>
+                    3
                 </div>
             </div>
 
             <div class="stats-box">
                 <div class="content">
-                    Admins: 3
+                    <h1>Admins</h1>
+                    3
                 </div>
             </div>
 
             <div class="stats-box">
                 <div class="content">
-                    Reports: 3
+                    <h1>Reports</h1>
+                    3
                 </div>
             </div>
         </div>
 
-        <div class="users-table">
-            <h1>Users</h1>
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>E-mail</th>
-                    <th>Member since</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.org</td>
-                    <td>21.10.2016</td>
-                </tr>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.org</td>
-                    <td>21.10.2016</td>
-                </tr>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.org</td>
-                    <td>21.10.2016</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <h1>Users</h1>
+        <table class="table table-widget">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Member since</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.org</td>
+                <td>21.10.2016</td>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.org</td>
+                <td>21.10.2016</td>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.org</td>
+                <td>21.10.2016</td>
+            </tr>
+            </tbody>
+        </table>
 
-        <div class="users-table">
-            <h1>Admins</h1>
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>E-mail</th>
-                    <th>Member since</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.org</td>
-                    <td>21.10.2016</td>
-                </tr>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.org</td>
-                    <td>21.10.2016</td>
-                </tr>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.org</td>
-                    <td>21.10.2016</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <h1>Admins</h1>
+        <table class="table table-widget">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Admin since</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.org</td>
+                <td>21.10.2016</td>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.org</td>
+                <td>21.10.2016</td>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.org</td>
+                <td>21.10.2016</td>
+            </tr>
+            </tbody>
+        </table>
 
-        <div class="users-table">
-            <h1>Reports</h1>
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Content</th>
-                    <th>Reported at</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>Photo</td>
-                    <td>21.10.2016</td>
-                    <td>Resolved</td>
-                </tr>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.org</td>
-                    <td>21.10.2016</td>
-                    <td>Resolved</td>
-                </tr>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.org</td>
-                    <td>21.10.2016</td>
-                    <td>Resolved</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <h1>Reports</h1>
+        <table class="table table-widget">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Content type</th>
+                <th>Reported at</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>Photo</td>
+                <td>21.10.2016</td>
+                <td>Resolved</td>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>Video</td>
+                <td>21.10.2016</td>
+                <td>Resolved</td>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>Post</td>
+                <td>21.10.2016</td>
+                <td>Resolved</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

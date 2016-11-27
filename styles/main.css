@@ -113,12 +113,14 @@ footer .container {
 
 aside {
     width: 200px;
+    margin-right: 20px;
 }
 
 .content {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     justify-content: space-between;
+    flex-grow: 1;
 }
 
 .widget-status,
@@ -250,8 +252,38 @@ h1 {
     font-size: 22px;
 }
 
-table {
+.table {
     width: 100%;
     margin-bottom: 20px;
+    display: table;
+    border: 1px solid
+}
+
+.input-control
+{
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 30px;
     display: block;
+    font-size: 12px;
+    line-height: 12px;
+    border: 1px solid #B2B3B6;
+    color: #7F8083;
+}
+
+.btn {
+    padding: 10px 20px;
+    background: #348899;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn:active,
+.btn:hover {
+    background: #4EA2B3;
+    cursor: pointer;
 }

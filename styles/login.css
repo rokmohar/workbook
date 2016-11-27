@@ -16,7 +16,12 @@
 {
     padding: 10px;
     background: #ffffff;
+    border: 1px solid #e5e6e9;
     border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    flex-flow: column;
+    justify-content: space-between;
 }
 
 label
@@ -24,10 +29,4 @@ label
     margin-bottom: 10px;
     display: block;
     font-weight: 700;
-}
-
-.input-control
-{
-    display: block;
-    width: 100%;
 }
