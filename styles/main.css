@@ -12,6 +12,49 @@ body {
     color: #ff0000;
 }
 
+.dropdown {
+    display: none;
+    position: relative;
+}
+
+@media screen and (max-width: 613px) {
+    .dropdown {
+        display: block;
+    }
+}
+
+.dropdown-title {
+    padding: 5px 0;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    background: transparent;
+}
+
+.dropdown input[type="checkbox"] {
+    display: none;
+}
+
+.dropdown .dropdown-menu {
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    visibility: hidden;
+    background: #343642;
+    color: #fff;
+}
+
+.dropdown .dropdown-menu a {
+    color: #fff;
+}
+
+.dropdown input[type="checkbox"]:checked ~ .dropdown-menu {
+    visibility: visible;
+}
+
 footer {
     padding: 20px;
     background-color: #fff;
@@ -54,24 +97,30 @@ footer {
 }
 
 .navbar .navmenu,
-.navbar .navmenu ul
+.navbar .navmenu .navmenu-list
 {
     display: block;
 }
 
-.navbar .navmenu ul {
+@media screen and (max-width: 613px) {
+    .navbar .navmenu .navmenu-list {
+        visibility: hidden;
+    }
+}
+
+.navbar .navmenu .navmenu-list {
     margin: 5px 0;
     display: flex;
     flex-flow: row nowrap;
 }
 
-.navbar .navmenu li
+.navbar .navmenu .navmenu-list li
 {
     margin: 0 5px;
     display: block;
 }
 
-.navbar .navmenu li a
+.navbar .navmenu .navmenu-list li a
 {
     padding: 0 10px;
     height: 30px;
@@ -82,8 +131,8 @@ footer {
     background: transparent;
 }
 
-.navbar .navmenu li a:active,
-.navbar .navmenu li a:hover
+.navbar .navmenu .navmenu-list li a:active,
+.navbar .navmenu .navmenu-list li a:hover
 {
     color: #ddd;
     text-decoration: none;
