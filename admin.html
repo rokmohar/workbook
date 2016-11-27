@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/admin.css" />
 
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="scripts/main.js"></script>
 </head>
 <body>
@@ -47,21 +48,21 @@
             <div class="stats-box">
                 <div class="content">
                     <h1>Users</h1>
-                    3
+                    <span id="users-count">3</span>
                 </div>
             </div>
 
             <div class="stats-box">
                 <div class="content">
                     <h1>Admins</h1>
-                    3
+                    <span id="admins-count">3</span>
                 </div>
             </div>
 
             <div class="stats-box">
                 <div class="content">
                     <h1>Reports</h1>
-                    3
+                    <span id="reports-count">3</span>
                 </div>
             </div>
         </div>

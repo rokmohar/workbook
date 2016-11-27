@@ -1,3 +1,5 @@
+var socket = io('http://192.168.27.128:1234');
+
 document.addEventListener("DOMContentLoaded", function() {
     var send = document.getElementById("send");
     if (send) {
@@ -18,24 +20,10 @@ function sendStatus(event) {
         error.innerHTML = "Status must contain some text";
     }
     else {
-        error.innerHTML = "";
-        var wall = document.getElementById("wall");
-        var post = "<article class=\"widget-post\">" +
-            "<div class=\"widget-post-img\">" +
-            "<a href=\"profile.html\"><img src=\"./images/avatars/simpson.jpg\" width=\"60\" height=\"60\" /></a>" +
-            "</div>" +
-            "<div class=\"widget-post-container\">" +
-            "<div class=\"widget-post-title\">" +
-            "<a href=\"profile.html\">Rok Mohar</a> shared a <a href=\"#\">post</a>." +
-            "</div>" +
-            "<div class=\"widget-post-content\">" +
-            status.value +
-            "</div>" +
-            "</div>" +
-            "</article>";
+        socket.emit("status", status.value);
 
-        status.value = '';
-        wall.innerHTML = post + wall.innerHTML;
+        error.innerHTML = "";
+        status.value = "";
     }
 }
 
@@ -58,3 +46,57 @@ function checkLogin(event) {
         window.location = 'index.html';
     }
 }
+
+function addPost(data) {
+    var post = document.createElement("article");
+    post.className = "widget-post";
+    post.innerHTML = "<div class=\"widget-post-img\">" +
+        "<a href=\"profile.html\"><img src=\"./images/avatars/simpson.jpg\" width=\"60\" height=\"60\" /></a>" +
+        "</div>" +
+        "<div class=\"widget-post-container\">" +
+        "<div class=\"widget-post-title\">" +
+        "<a href=\"profile.html\">Rok Mohar</a> shared a <a href=\"#\">" +
+        data.type +
+        "</a>." +
+        "</div>" +
+        "<div class=\"widget-post-content\">" +
+        data.content +
+        "</div>" +
+        "</div>";
+
+    var wall = document.getElementById("wall");
+
+    if (wall) {
+        wall.insertBefore(post, wall.firstChild);
+    }
+}
+
+socket.on("post", function(post) {
+    addPost(post);
+});
+
+socket.on("posts", function(posts) {
+    for (var i = 0; i < posts.length; i++) {
+        addPost(posts[i]);
+    }
+});
+
+socket.on("stats", function(data) {
+    console.log(data);
+
+    var numUsers = document.getElementById("users-count");
+    var numAdmins = document.getElementById("admins-count");
+    var numReports = document.getElementById("reports-count");
+
+    if (numUsers) {
+        numUsers.innerHTML = data.users;
+    }
+
+    if (numAdmins) {
+        numAdmins.innerHTML = data.admins;
+    }
+
+    if (numReports) {
+        numReports.innerHTML = data.reports;
+    }
+});

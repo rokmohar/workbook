@@ -47,3 +47,14 @@
 .table-widget th {
     font-weight: 700;
 }
+
+.side-menu a {
+    color: #348899;
+    text-decoration: none;
+}
+
+.side-menu a:active,
+.side-menu a:hover {
+    color: #348899;
+    text-decoration: underline;
+}
