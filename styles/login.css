@@ -15,7 +15,8 @@
 .widget-login .widget-login-form
 {
     padding: 10px;
-    background: #eee;
+    background: #ffffff;
+    border-radius: 4px;
 }
 
 label

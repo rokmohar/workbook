@@ -7,20 +7,21 @@
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/admin.css" />
+
+    <script src="scripts/main.js"></script>
 </head>
 <body>
 <header class="navbar navbar-fixed">
     <div class="container">
+        <a href="index.html" class="logo">WorkBook</a>
         <nav class="navmenu pull-right">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="login.html">Logout</a></li>
             </ul>
         </nav>
-        <a href="#" class="logo">WorkBook</a>
-        <div class="clearfix"></div>
     </div>
 </header>
 
@@ -30,14 +31,14 @@
             Rok Mohar
         </div>
 
-        <article class="widget-block">
+        <div class="widget-block">
             <ul class="side-menu    ">
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Users</a></li>
                 <li><a href="#">Admins</a></li>
                 <li><a href="#">Reports</a></li>
             </ul>
-        </article>
+        </div>
     </aside>
 
     <div class="content">
@@ -59,13 +60,11 @@
                     Reports: 3
                 </div>
             </div>
-
-            <div class="clearfix"></div>
         </div>
 
         <div class="users-table">
             <h1>Users</h1>
-            <table width="100%">
+            <table>
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -95,7 +94,7 @@
 
         <div class="users-table">
             <h1>Admins</h1>
-            <table width="100%">
+            <table>
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -125,7 +124,7 @@
 
         <div class="users-table">
             <h1>Reports</h1>
-            <table width="100%">
+            <table>
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -139,23 +138,24 @@
                     <td>John Doe</td>
                     <td>Photo</td>
                     <td>21.10.2016</td>
+                    <td>Resolved</td>
                 </tr>
                 <tr>
                     <td>John Doe</td>
                     <td>john.doe@example.org</td>
                     <td>21.10.2016</td>
+                    <td>Resolved</td>
                 </tr>
                 <tr>
                     <td>John Doe</td>
                     <td>john.doe@example.org</td>
                     <td>21.10.2016</td>
+                    <td>Resolved</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <div class="clearfix"></div>
 </div>
 
 <footer>
