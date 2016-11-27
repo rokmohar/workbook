@@ -32,3 +32,20 @@ Supported devices
 
 Supports modern browsers which support HTML5, CSS3 and JavaScript. iOS and android-based
 phones and tables are supported.
+
+Problems with browsers
+----------------------
+
+Application was tested in Chrome, Firefox and Edge and no problems were detected in any of
+these.
+
+Top 2 functionalities
+---------------------
+
+Best functionalities of my application are websockets with NodeJS socket.io and responsive
+design of the web application.
+
+HTML and CSS validation
+-----------------------
+
+Screenshots of validated HTML and CSS files are in docs/validator folder.
