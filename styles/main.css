@@ -15,6 +15,7 @@ body {
 .dropdown {
     display: none;
     position: relative;
+    text-align: right;
 }
 
 @media screen and (max-width: 613px) {
@@ -41,10 +42,11 @@ body {
     padding: 10px;
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     visibility: hidden;
     background: #343642;
     color: #fff;
+    text-align: left;
 }
 
 .dropdown .dropdown-menu a {
