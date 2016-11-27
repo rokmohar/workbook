@@ -63,7 +63,6 @@ footer {
     margin: 5px 0;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
 }
 
 .navbar .navmenu li
@@ -94,32 +93,37 @@ footer {
 
 .container
 {
+    padding: 0 20px;
     margin: 0 auto;
-    width: 960px;
+    max-width: 960px;
+}
+
+.container-layout {
+    margin-top: 60px;
+}
+
+.container-nav,
+.container-layout {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
-footer .container {
-    display: block;
-}
-
-.container-margin
-{
-    margin-top: 60px !important;
-}
-
-aside {
+/*aside {
     width: 200px;
     margin-right: 20px;
+}*/
+
+@media screen
+and (max-width: 413px) {
+    aside {
+        display: none;
+    }
 }
 
 .content {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-between;
     flex-grow: 1;
 }
 
@@ -135,7 +139,6 @@ aside {
 .widget-post {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
 }
 
 .widget-block {
@@ -146,7 +149,6 @@ aside {
     border: 1px solid #e5e6e9;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-between;
 }
 
 
@@ -164,6 +166,14 @@ aside {
     height: 60px;
     width: 60px;
     background: #fff;
+}
+
+@media screen
+and (max-width: 413px) {
+    .widget-status .widget-status-img,
+    .widget-post .widget-post-img {
+        display: none;
+    }
 }
 
 .widget-status .widget-status-img img,
@@ -184,14 +194,12 @@ aside {
     border: 1px solid #e5e6e9;
     display: flex;
     flex-flow: column wrap;
-    justify-content: space-between;
 }
 
 .widget-status .widget-status-form textarea
 {
     margin: 0;
     padding: 0;
-    width: 100%;
     min-height: 40px;
     resize: vertical;
 }
@@ -224,6 +232,15 @@ aside {
     color: #000;
     font-weight: 700;
     text-decoration: underline;
+}
+
+.widget-post .widget-post-content img {
+    width: 100%    !important;
+    height: auto   !important;
+}
+
+iframe {
+    max-width: 100% !important;
 }
 
 .profile-avatar {
@@ -292,7 +309,6 @@ h1 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .stats-box {
@@ -371,7 +387,6 @@ h1 {
     display: flex;
     flex-direction: column;
     flex-flow: column;
-    justify-content: space-between;
 }
 
 label
