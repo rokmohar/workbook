@@ -2,50 +2,66 @@
 
 namespace CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-class Users implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", unique=true)
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\Column(type="integer", options={"unsigned"=true})
      */
-    private $state;
+    protected $state;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\Post", mappedBy="user")
+     */
+    protected $posts;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+        $this->posts = new ArrayCollection();
+    }
 
     /**
      * {@inheritDoc}
@@ -61,6 +77,8 @@ class Users implements UserInterface, \Serializable
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -167,6 +185,60 @@ class Users implements UserInterface, \Serializable
     public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addPosts(array $posts)
+    {
+        /** @var \CoreBundle\Entity\PostInterface $p */
+        foreach ($posts as $p) {
+            $this->addPost($p);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removePosts(array $posts)
+    {
+        /** @var \CoreBundle\Entity\PostInterface $p */
+        foreach ($posts as $p) {
+            $this->removePost($p);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addPost(PostInterface $post)
+    {
+        $this->posts->add($post);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removePost(PostInterface $post)
+    {
+        $this->posts->removeElement($post);
 
         return $this;
     }

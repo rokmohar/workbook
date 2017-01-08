@@ -71,6 +71,31 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function setUpdatedAt(\DateTime $updatedAt);
 
     /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts();
+
+    /**
+     * @param array $posts
+     */
+    public function addPosts(array $posts);
+
+    /**
+     * @param array $posts
+     */
+    public function removePosts(array $posts);
+
+    /**
+     * @param \CoreBundle\Entity\PostInterface $post
+     */
+    public function addPost(PostInterface $post);
+
+    /**
+     * @param \CoreBundle\Entity\PostInterface $post
+     */
+    public function removePost(PostInterface $post);
+
+    /**
      * @return array
      */
     public static function getStates();
