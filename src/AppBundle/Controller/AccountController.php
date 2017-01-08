@@ -34,4 +34,12 @@ class AccountController extends Controller
     {
         throw new \RuntimeException();
     }
+
+    /**
+     * @Route("/register", name="register")
+     */
+    public function registerAction()
+    {
+        return $this->render('AppBundle:Account:register.html.twig');
+    }
 }
