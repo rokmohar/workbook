@@ -1,65 +1,70 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <div class="container container-layout">
-        <div class="content">
-            <div class="widget-status">
-                <div class="widget-status-img">
-                    <a href="profile.html"><img src="images/avatars/simpson.jpg" alt="Rok Mohar" width="60" height="60" /></a>
-                </div>
-                <form method="POST" action="#" class="widget-status-form">
-                    <div class="form-space">
-                        <textarea id="status" name="status" class="input-control" placeholder="What is on your mind?"></textarea>
-                    </div>
-                    <div>
-                        <div id="error" class="form-error"></div>
-                        <button id="send" type="submit" class="btn">Submit</button>
-                    </div>
-                </form>
+    <div class="row">
+        <div class="panel panel-default">
+            <form method="POST" action="#" class="panel-body">
+                <textarea id="status" name="status"class="form-control" rows="3" placeholder="What is on your mind?" style="resize: vertical;"></textarea>
+            </form>
+            <div class="panel-footer panel-action">
+                <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
             </div>
+        </div>
 
-            <div id="wall">
-                <article class="widget-post">
-                    <div class="widget-post-img">
-                        <a href="profile.html"><img src="images/avatars/simpson.jpg" alt="Rok Mohar" width="60" height="60" /></a>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="#" class="panel-heading-img pull-left">
+                    <img src="images/avatars/simpson.jpg" alt="" width="60" height="60" />
+                </a>
+                <div class="panel-action panel-heading-action">
+                    <div class="action-block">
+                        <a href="#">Rok Mohar</a> shared a <a href="#">video</a>.
                     </div>
-                    <div class="widget-post-container">
-                        <h2 class="widget-post-title">
-                            <a href="profile.html">Rok Mohar</a> shared a <a href="#">video</a>.
-                        </h2>
-                        <div class="widget-post-content video">
-                            <iframe src="https://www.youtube.com/embed/ryuhvZciER0" allowfullscreen></iframe>
-                        </div>
+                    <div class="action-block action-time">
+                        53 minutes ago
                     </div>
-                </article>
+                </div>
+            </div>
+            <div class="panel-body panel-video">
+                <iframe src="https://www.youtube.com/embed/CWujSgCrXjc" allowfullscreen></iframe>
+            </div>
+        </div>
 
-                <article class="widget-post">
-                    <div class="widget-post-img">
-                        <a href="profile.html"><img src="images/avatars/john_cena.png" alt="John Cena" width="60" height="60" /></a>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="#" class="panel-heading-img pull-left">
+                    <img src="images/avatars/john_cena.png" alt="" width="60" height="60" />
+                </a>
+                <div class="panel-action panel-heading-action">
+                    <div class="action-block">
+                        <a href="#">John Cena</a> shared a <a href="#">photo</a>.
                     </div>
-                    <div class="widget-post-container">
-                        <h2 class="widget-post-title">
-                            <a href="profile.html">John Cena</a> shared a <a href="#">photo</a>.
-                        </h2>
-                        <div class="widget-post-content">
-                            <img src="images/posts/donald_trump.jpg" alt="" />
-                        </div>
+                    <div class="action-block action-time">
+                        53 minutes ago
                     </div>
-                </article>
+                </div>
+            </div>
+            <div class="panel-body panel-img">
+                <img src="images/posts/donald_trump.jpg" alt="" class="img-responsive" />
+            </div>
+        </div>
 
-                <article class="widget-post">
-                    <div class="widget-post-img">
-                        <a href="profile.html"><img src="images/avatars/hillary_clinton.jpg" alt="Hillary Clinton" width="60" height="60" /></a>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="#" class="panel-heading-img pull-left">
+                    <img src="images/avatars/hillary_clinton.jpg" alt="" width="60" height="60" />
+                </a>
+                <div class="panel-action panel-heading-action">
+                    <div class="action-block">
+                        <a href="#">Hillary Clinton</a> shared a <a href="#">post</a>.
                     </div>
-                    <div class="widget-post-container">
-                        <h2 class="widget-post-title">
-                            <a href="profile.html">Hillary Clinton</a> shared a <a href="#">post</a>.
-                        </h2>
-                        <div class="widget-post-content">
-                            Donald Trump is the best choice for the president! <a href="#">#TrumpPence2016</a> <a href="#">#MAGA</a>
-                        </div>
+                    <div class="action-block action-time">
+                        53 minutes ago
                     </div>
-                </article>
+                </div>
+            </div>
+            <div class="panel-body">
+                Donald Trump is the best choice for the president! <a href="#">#TrumpPence2016</a> <a href="#">#MAGA</a>
             </div>
         </div>
     </div>
