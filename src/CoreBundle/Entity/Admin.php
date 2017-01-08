@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Admin implements AdminInterface
 {
     /**
+     * @var integer
+     *
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -18,21 +20,34 @@ class Admin implements AdminInterface
     protected $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", unique=true)
      */
     protected $email;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
     protected $password;
 
     /**
+     * @var string
+     */
+    protected $plainPassword;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     protected $createdAt;
 
     /**
+     * @var \DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     protected $updatedAt;
@@ -96,6 +111,24 @@ class Admin implements AdminInterface
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

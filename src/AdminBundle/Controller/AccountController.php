@@ -12,6 +12,16 @@ class AccountController extends Controller
      */
     public function loginAction()
     {
+        /** @var \CoreBundle\Doctrine\AdminManagerInterface $manager */
+        //$manager = $this->get('workbook.admin_manager');
+        //$repository = $manager->getObjectRepository();
+
+        /** @var \CoreBundle\Entity\AdminInterface $admin */
+        //$admin = $repository->find(1);
+
+        /** @var \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface $encoder */
+        //$encoder = $this->get('security.encoder_factory');
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // last username entered by the user

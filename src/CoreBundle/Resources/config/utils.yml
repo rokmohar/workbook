@@ -1,0 +1,8 @@
+parameters:
+    workbook.password_encoder_class: CoreBundle\Util\PasswordEncoder
+
+services:
+    workbook.util.password_encoder:
+        class: "%workbook.password_encoder_class%"
+        arguments:
+            - "@security.encoder_factory"

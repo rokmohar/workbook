@@ -25,6 +25,16 @@ interface AdminInterface extends \Symfony\Component\Security\Core\User\UserInter
     public function setPassword($password);
 
     /**
+     * @return string
+     */
+    public function getPlainPassword();
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword);
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt();

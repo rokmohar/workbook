@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class User implements UserInterface, \Serializable
 {
     /**
+     * @var integer
+     *
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -19,37 +21,56 @@ class User implements UserInterface, \Serializable
     protected $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", unique=true)
      */
     protected $email;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
     protected $password;
 
     /**
+     * @var string
+     */
+    protected $plainPassword;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
     protected $name;
 
     /**
+     * @var integer
+     *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     protected $state;
 
     /**
+     * @var \DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     protected $createdAt;
 
     /**
+     * @var \DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     protected $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", inversedBy="friendsWithMe")
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", inversedBy="friendsBy")
      * @ORM\JoinTable(
      *     name="user_friends",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -59,11 +80,15 @@ class User implements UserInterface, \Serializable
     private $friends;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
      * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", mappedBy="friends")
      **/
-    private $friendsWithMe;
+    private $friendsBy;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
      * @ORM\OneToMany(targetEntity="CoreBundle\Entity\Post", mappedBy="user")
      */
     protected $posts;
@@ -76,7 +101,7 @@ class User implements UserInterface, \Serializable
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->friends = new ArrayCollection();
-        $this->friendsWithMe = new ArrayCollection();
+        $this->friendsBy = new ArrayCollection();
         $this->posts = new ArrayCollection();
     }
 
@@ -130,6 +155,24 @@ class User implements UserInterface, \Serializable
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->$plainPassword = $plainPassword;
 
         return $this;
     }
@@ -263,9 +306,9 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
-    public function getFriendsWithMe()
+    public function getFriendsBy()
     {
-        return $this->friendsWithMe;
+        return $this->friendsBy;
     }
 
     /**
@@ -355,6 +398,8 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
+        $this->plainPassword = null;
+
         return $this;
     }
 

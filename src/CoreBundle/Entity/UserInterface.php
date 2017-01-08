@@ -33,6 +33,16 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     /**
      * @return string
      */
+    public function getPlainPassword();
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword);
+
+    /**
+     * @return string
+     */
     public function getName();
 
     /**
@@ -98,7 +108,7 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getFriendsWithMe();
+    public function getFriendsBy();
 
     /**
      * @return \Doctrine\Common\Collections\Collection
