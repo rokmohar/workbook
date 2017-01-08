@@ -39,10 +39,12 @@ security:
                 check_path: /admin/login
                 username_parameter: email
                 password_parameter: password
+                csrf_token_generator: security.csrf.token_manager
 
             logout:
                 path:   /admin/logout
                 target: /admin
+                invalidate_session: false
 
         main:
             pattern: ^/
@@ -55,10 +57,12 @@ security:
                 check_path: /login
                 username_parameter: email
                 password_parameter: password
+                csrf_token_generator: security.csrf.token_manager
 
             logout:
                 path:   /logout
                 target: /
+                invalidate_session: false
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

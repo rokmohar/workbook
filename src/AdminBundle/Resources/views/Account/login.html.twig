@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'frontend/layout.html.twig' %}
 
 {% block header %}
     <!-- Navigation -->
@@ -20,6 +20,7 @@
         {% endif %}
 
         <form class="panel panel-default" action="{{ path('admin_login') }}" method="POST">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="panel-heading">
                 Sign in
             </div>
