@@ -286,7 +286,7 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
-    public function addfriend(UserInterface $friend)
+    public function addFriend(UserInterface $friend)
     {
         $this->friends->add($friend);
 
