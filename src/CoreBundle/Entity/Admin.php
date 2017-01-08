@@ -165,6 +165,6 @@ class Admin implements AdminInterface
      */
     public function getRoles()
     {
-        return array();
+        return array('ROLE_ADMIN');
     }
 }

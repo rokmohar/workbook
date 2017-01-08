@@ -4,6 +4,10 @@ body {
     background: #e9ebee;
 }
 
+.login-container {
+    max-width: 500px;
+}
+
 .panel-heading-img {
     height: 60px;
     width: 60px;
@@ -101,8 +105,4 @@ body {
 
 .form-group:last-child {
     margin-bottom: 0;
-}
-
-footer .container {
-    text-align: center;
 }

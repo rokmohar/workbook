@@ -1,70 +1,72 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <div class="panel panel-default">
-            <form method="POST" action="#" class="panel-body">
-                <textarea id="status" name="status"class="form-control" rows="3" placeholder="What is on your mind?" style="resize: vertical;"></textarea>
-            </form>
-            <div class="panel-footer panel-action">
-                <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <a href="#" class="panel-heading-img pull-left">
-                    <img src="images/avatars/simpson.jpg" alt="" width="60" height="60" />
-                </a>
-                <div class="panel-action panel-heading-action">
-                    <div class="action-block">
-                        <a href="#">Rok Mohar</a> shared a <a href="#">video</a>.
-                    </div>
-                    <div class="action-block action-time">
-                        53 minutes ago
-                    </div>
+    <div class="container" role="main">
+        <div class="row">
+            <div class="panel panel-default">
+                <form method="POST" action="#" class="panel-body">
+                    <textarea id="status" name="status"class="form-control" rows="3" placeholder="What is on your mind?" style="resize: vertical;"></textarea>
+                </form>
+                <div class="panel-footer panel-action">
+                    <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
             </div>
-            <div class="panel-body panel-video">
-                <iframe src="https://www.youtube.com/embed/CWujSgCrXjc" allowfullscreen></iframe>
-            </div>
-        </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <a href="#" class="panel-heading-img pull-left">
-                    <img src="images/avatars/john_cena.png" alt="" width="60" height="60" />
-                </a>
-                <div class="panel-action panel-heading-action">
-                    <div class="action-block">
-                        <a href="#">John Cena</a> shared a <a href="#">photo</a>.
-                    </div>
-                    <div class="action-block action-time">
-                        53 minutes ago
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="#" class="panel-heading-img pull-left">
+                        <img src="images/avatars/simpson.jpg" alt="" width="60" height="60" />
+                    </a>
+                    <div class="panel-action panel-heading-action">
+                        <div class="action-block">
+                            <a href="#">Rok Mohar</a> shared a <a href="#">video</a>.
+                        </div>
+                        <div class="action-block action-time">
+                            53 minutes ago
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel-body panel-img">
-                <img src="images/posts/donald_trump.jpg" alt="" class="img-responsive" />
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <a href="#" class="panel-heading-img pull-left">
-                    <img src="images/avatars/hillary_clinton.jpg" alt="" width="60" height="60" />
-                </a>
-                <div class="panel-action panel-heading-action">
-                    <div class="action-block">
-                        <a href="#">Hillary Clinton</a> shared a <a href="#">post</a>.
-                    </div>
-                    <div class="action-block action-time">
-                        53 minutes ago
-                    </div>
+                <div class="panel-body panel-video">
+                    <iframe src="https://www.youtube.com/embed/CWujSgCrXjc" allowfullscreen></iframe>
                 </div>
             </div>
-            <div class="panel-body">
-                Donald Trump is the best choice for the president! <a href="#">#TrumpPence2016</a> <a href="#">#MAGA</a>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="#" class="panel-heading-img pull-left">
+                        <img src="images/avatars/john_cena.png" alt="" width="60" height="60" />
+                    </a>
+                    <div class="panel-action panel-heading-action">
+                        <div class="action-block">
+                            <a href="#">John Cena</a> shared a <a href="#">photo</a>.
+                        </div>
+                        <div class="action-block action-time">
+                            53 minutes ago
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body panel-img">
+                    <img src="images/posts/donald_trump.jpg" alt="" class="img-responsive" />
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="#" class="panel-heading-img pull-left">
+                        <img src="images/avatars/hillary_clinton.jpg" alt="" width="60" height="60" />
+                    </a>
+                    <div class="panel-action panel-heading-action">
+                        <div class="action-block">
+                            <a href="#">Hillary Clinton</a> shared a <a href="#">post</a>.
+                        </div>
+                        <div class="action-block action-time">
+                            53 minutes ago
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    Donald Trump is the best choice for the president! <a href="#">#TrumpPence2016</a> <a href="#">#MAGA</a>
+                </div>
             </div>
         </div>
     </div>

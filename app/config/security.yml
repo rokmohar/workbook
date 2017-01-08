@@ -10,50 +10,54 @@ security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        admin_provider:
-            entity:
-                class: CoreBundle:Admin
-                property: email
-
         user_provider:
             entity:
                 class: CoreBundle:User
                 property: email
 
+        admin_provider:
+            entity:
+                class: CoreBundle:Admin
+                property: email
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
-            pattern: ^/(_(profiler|wdt)|bundles|images|scripts|styles|vednor)/
+            pattern: ^/(_(profiler|wdt)|bundles|images|scripts|styles|vendor)/
             security: false
-
-        main:
-            pattern: ^/
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            form_login:
-                provider: user_provider
-                login_path: /login
-                check_path: /login_check
-
-            logout:
-                path:   /logout
-                target: /
-
-        admin:
 
         admin:
             pattern: ^/admin
+            anonymous: ~
 
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             form_login:
                 provider: admin_provider
                 login_path: /admin/login
-                check_path: /admin/login_check
+                check_path: /admin/login
 
             logout:
                 path:   /admin/logout
                 target: /admin
 
+        main:
+            pattern: ^/(?!admin)
+            anonymous: ~
+
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            form_login:
+                provider: user_provider
+                login_path: /login
+                check_path: /login
+                username_parameter: email
+                password_parameter: password
+
+            logout:
+                path:   /logout
+                target: /
+
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: ROLE_USER }
+        - { path: ^/admin, role: ROLE_ADMIN }
