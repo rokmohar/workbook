@@ -69,3 +69,11 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Migrations Configuration
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/Migrations"
+    namespace: Application\Migrations
+    table_name: migrations
+    name: Application Migrations
+    organize_migrations: by_year_and_month
