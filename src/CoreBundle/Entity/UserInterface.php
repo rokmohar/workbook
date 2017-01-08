@@ -73,6 +73,36 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
+    public function getFriends();
+
+    /**
+     * @param array $users
+     */
+    public function addFriends(array $users);
+
+    /**
+     * @param array $users
+     */
+    public function removeFriends(array $users);
+
+    /**
+     * @param \CoreBundle\Entity\UserInterface $user
+     */
+    public function addFriend(UserInterface $user);
+
+    /**
+     * @param \CoreBundle\Entity\UserInterface $user
+     */
+    public function removeFriend(UserInterface $user);
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFriendsWithMe();
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
     public function getPosts();
 
     /**

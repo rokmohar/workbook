@@ -49,6 +49,21 @@ class User implements UserInterface, \Serializable
     protected $updatedAt;
 
     /**
+     * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", inversedBy="friendsWithMe")
+     * @ORM\JoinTable(
+     *     name="user_friends",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="friend_id", referencedColumnName="id")}
+     * )
+     **/
+    private $friends;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", mappedBy="friends")
+     **/
+    private $friendsWithMe;
+
+    /**
      * @ORM\OneToMany(targetEntity="CoreBundle\Entity\Post", mappedBy="user")
      */
     protected $posts;
@@ -60,6 +75,8 @@ class User implements UserInterface, \Serializable
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->friends = new ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
         $this->posts = new ArrayCollection();
     }
 
@@ -187,6 +204,68 @@ class User implements UserInterface, \Serializable
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFriends()
+    {
+        return $this->friends;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addFriends(array $friends)
+    {
+        /** @var \CoreBundle\Entity\UserInterface $f */
+        foreach ($friends as $f) {
+            $this->addFriend($f);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeFriends(array $friends)
+    {
+        /** @var \CoreBundle\Entity\UserInterface $f */
+        foreach ($friends as $f) {
+            $this->removeFriend($f);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addfriend(UserInterface $friend)
+    {
+        $this->friends->add($friend);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeFriend(UserInterface $friend)
+    {
+        $this->friends->removeElement($friend);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFriendsWithMe()
+    {
+        return $this->friendsWithMe;
     }
 
     /**
