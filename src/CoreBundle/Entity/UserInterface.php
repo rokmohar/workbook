@@ -111,6 +111,11 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function getFriendsBy();
 
     /**
+     * @return array
+     */
+    public function getPeople();
+
+    /**
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getPosts();

@@ -328,6 +328,14 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
+    public function getPeople()
+    {
+        return array_merge($this->getFriends()->toArray(), $this->getFriendsBy()->toArray());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getPosts()
     {
         return $this->posts;
