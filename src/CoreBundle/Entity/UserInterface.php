@@ -136,6 +136,11 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function removePost(PostInterface $post);
 
     /**
+     * @param mixed $user
+     */
+    public function equals($user);
+
+    /**
      * @return array
      */
     public static function getStates();

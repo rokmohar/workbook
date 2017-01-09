@@ -1,0 +1,8 @@
+services:
+    workbook.user_twig_extension:
+        class: AppBundle\Twig\UserExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+        arguments:
+            - "@security.token_storage"

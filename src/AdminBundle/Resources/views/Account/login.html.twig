@@ -1,43 +1,72 @@
-{% extends 'frontend/layout.html.twig' %}
+{% extends 'backend/layout.html.twig' %}
 
-{% block header %}
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Workbook</a>
-            </div>
-        </div>
-    </nav>
+{% block stylesheets %}
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/backend/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/backend/dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/backend/plugins/iCheck/square/blue.css">
 {% endblock %}
 
 {% block body %}
-    <div class="container login-container" role="main">
+    <body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="{{ path('admin_homepage') }}">Workbook</a>
+        </div>
         {% if error %}
             <div class="alert alert-danger" role="alert">
                 {{ error.messageKey|trans(error.messageData, 'security') }}
             </div>
         {% endif %}
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
 
-        <form class="panel panel-default" action="{{ path('admin_login') }}" method="POST">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <div class="panel-heading">
-                Sign in
-            </div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label for="email" class="sr-only">Email address</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Email address" value="{{ lastUsername }}" required>
+            <form action="{{ path('admin_login') }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="form-group has-feedback">
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
-                <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <div class="form-group has-feedback">
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-            </div>
-            <div class="panel-footer panel-action">
-                <a href="#" class="btn btn-default" type="submit">Register</a>
-                <button class="btn btn-primary pull-right" type="submit">Sign in</button>
-            </div>
-        </form>
+                <div class="row">
+                    <div class="col-sm-offset-6 col-sm-6 col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+        </div>
+        <!-- /.login-box-body -->
     </div>
+    <!-- /.login-box -->
+
+    {% block javascripts %}
+        <!-- jQuery 2.2.3 -->
+        <script src="/backend/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="/backend/bootstrap/js/bootstrap.min.js"></script>
+        <!-- iCheck -->
+        <script src="/backend/plugins/iCheck/icheck.min.js"></script>
+        <script>
+          $(function () {
+            $('input').iCheck({
+              checkboxClass: 'icheckbox_square-blue',
+              radioClass: 'iradio_square-blue',
+              increaseArea: '20%' // optional
+            });
+          });
+        </script>
+    {% endblock %}
+    </body>
 {% endblock %}

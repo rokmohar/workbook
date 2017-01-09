@@ -368,6 +368,21 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
+    public function equals($user)
+    {
+        if ($user instanceof UserInterface) {
+            return (strcmp($this->getId(), $user->getId()) === 0);
+        }
+        else if (is_string($user)) {
+            return (strcmp($this->getUsername(), $user) === 0);
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public static function getStates()
     {
         return array(
