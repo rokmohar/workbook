@@ -2,6 +2,7 @@
 
 namespace AppBundle\Twig;
 
+use CoreBundle\Entity\PostCommentInterface;
 use CoreBundle\Entity\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -29,6 +30,7 @@ class UserExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('is_owner', array($this, 'isOwner')),
+            new \Twig_SimpleFunction('is_respondent', array($this, 'isRespondent')),
         );
     }
 
@@ -42,8 +44,21 @@ class UserExtension extends \Twig_Extension
         return ($token = $this->tokenStorage->getToken()) ? $user->equals($token->getUser()) : false;
     }
 
+    /**
+     * @param \CoreBundle\Entity\PostCommentInterface $comment
+     *
+     * @return boolean
+     */
+    public function isRespondent(PostCommentInterface $comment)
+    {
+        return $this->isOwner($comment->getRespondent());
+    }
+
+    /**
+     * @return string
+     */
     public function getName()
     {
-        return 'app_extension';
+        return 'user_extension';
     }
 }
