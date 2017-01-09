@@ -82,6 +82,56 @@ interface PostInterface
     public function setUpdatedAt(\DateTime $updatedAt);
 
     /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments();
+
+    /**
+     * @param array $comments
+     */
+    public function addComments(array $comments);
+
+    /**
+     * @param array $comments
+     */
+    public function removeComments(array $comments);
+
+    /**
+     * @param \CoreBundle\Entity\PostCommentInterface $comment
+     */
+    public function addComment(PostCommentInterface $comment);
+
+    /**
+     * @param \CoreBundle\Entity\PostCommentInterface $comment
+     */
+    public function removeComment(PostCommentInterface $comment);
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReactions();
+
+    /**
+     * @param array $reactions
+     */
+    public function addReactions(array $reactions);
+
+    /**
+     * @param array $reactions
+     */
+    public function removeReactions(array $reactions);
+
+    /**
+     * @param \CoreBundle\Entity\PostReactionInterface $reaction
+     */
+    public function addReaction(PostReactionInterface $reaction);
+
+    /**
+     * @param \CoreBundle\Entity\PostReactionInterface $reaction
+     */
+    public function removeReaction(PostReactionInterface $reaction);
+
+    /**
      * @return array
      */
     public static function getStates();

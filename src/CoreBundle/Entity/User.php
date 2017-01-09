@@ -94,6 +94,20 @@ class User implements UserInterface, \Serializable
     protected $posts;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostComment", mappedBy="respondent")
+     */
+    protected $postComments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostReaction", mappedBy="respondent")
+     */
+    protected $postReactions;
+
+    /**
      * Constructor.
      */
     public function __construct()
