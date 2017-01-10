@@ -2,6 +2,9 @@ parameters:
     workbook.admin_class: CoreBundle\Entity\Admin
     workbook.admin_manager_class: CoreBundle\Doctrine\AdminManager
 
+    workbook.post_class: CoreBundle\Entity\Post
+    workbook.post_manager_class: CoreBundle\Doctrine\PostManager
+
     workbook.user_class: CoreBundle\Entity\User
     workbook.user_manager_class: CoreBundle\Doctrine\UserManager
 
@@ -12,6 +15,13 @@ services:
             - "@workbook.util.password_encoder"
             - "@doctrine.orm.entity_manager"
             - "%workbook.admin_class%"
+
+    workbook.post_manager:
+        class: "%workbook.post_manager_class%"
+        arguments:
+            - "@workbook.util.password_encoder"
+            - "@doctrine.orm.entity_manager"
+            - "%workbook.post_class%"
 
     workbook.user_manager:
         class: "%workbook.user_manager_class%"

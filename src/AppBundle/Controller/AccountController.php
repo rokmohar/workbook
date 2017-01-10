@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\UserType;
+use CoreBundle\Entity\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +38,34 @@ class AccountController extends Controller
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/register", name="register")
      */
-    public function registerAction()
+    public function registerAction(Request $request)
     {
-        return $this->render('AppBundle:Account:register.html.twig');
+        $userForm = $this->createForm(UserType::class, null, array(
+            'validation_groups' => ['register'],
+        ));
+        $userForm->handleRequest($request);
+
+        if ($userForm->isSubmitted() &&$userForm->isValid()) {
+            /** @var \CoreBundle\Entity\UserInterface $user */
+            $user = $userForm->getData();
+
+            // Set default data
+            $user->setState(UserInterface::STATE_ACTIVE);
+
+            /** @var \CoreBundle\Doctrine\UserManagerInterface $manager */
+            $manager = $this->get('workbook.user_manager');
+            $manager->updateUser($user);
+
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('AppBundle:Account:register.html.twig', array(
+            'userForm' => $userForm->createView(),
+        ));
     }
 }

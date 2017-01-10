@@ -3,10 +3,15 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="admins")
+ * @ORM\Table(name="admins", uniqueConstraints={
+ *     @ORM\UniqueConstraint(columns={"email"})
+ * })
+ * @UniqueEntity({"email"})
  */
 class Admin implements AdminInterface
 {

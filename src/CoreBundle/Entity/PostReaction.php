@@ -30,7 +30,7 @@ class PostReaction implements PostReactionInterface
     /**
      * @var \CoreBundle\Entity\UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User", inversedBy="reactions")
+     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User", inversedBy="postReactions")
      * @ORM\JoinColumn(name="respondent_id", referencedColumnName="id")
      */
     protected $respondent;

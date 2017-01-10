@@ -2,10 +2,11 @@
 
 namespace CoreBundle\Entity;
 
-    use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\PostRepository")
  * @ORM\Table(name="posts")
  */
 class Post implements PostInterface
@@ -31,6 +32,9 @@ class Post implements PostInterface
      * @var string
      *
      * @ORM\Column(type="text")
+     *
+     * @Assert\NotBlank(groups = {"create"})
+     * @Assert\Type("text", groups = {"create"})
      */
     protected $content;
 
@@ -38,6 +42,19 @@ class Post implements PostInterface
      * @var integer
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
+     *
+     * @Assert\Choice(choices = "getTypes", groups = {"create"})
+     * @Assert\Type("text", groups = {"integer"})
+     */
+    protected $type;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"unsigned"=true})
+     *
+     * @Assert\Choice(choices = "getPrivacies", groups = {"create"})
+     * @Assert\Type("text", groups = {"integer"})
      */
     protected $privacy;
 
@@ -45,6 +62,9 @@ class Post implements PostInterface
      * @var integer
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
+     *
+     * @Assert\Choice(choices = "getStates", groups = {"create"})
+     * @Assert\Type("text", groups = {"integer"})
      */
     protected $state;
 
@@ -142,6 +162,32 @@ class Post implements PostInterface
     /**
      * {@inheritDoc}
      */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTypeLabel()
+    {
+        return self::getTypes()[$this->getType()];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getPrivacy()
     {
         return $this->privacy;
@@ -160,6 +206,14 @@ class Post implements PostInterface
     /**
      * {@inheritDoc}
      */
+    public function getPrivacyLabel()
+    {
+        return self::getPrivacies()[$this->getType()];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getState()
     {
         return $this->state;
@@ -173,6 +227,14 @@ class Post implements PostInterface
         $this->state = $state;
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStateLabel()
+    {
+        return self::getStates()[$this->getType()];
     }
 
     /**
@@ -317,6 +379,18 @@ class Post implements PostInterface
         $this->reactions->removeElement($reaction);
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function getTypes()
+    {
+        return array(
+            self::TYPE_POST  => 'Post',
+            self::TYPE_IMAGE => 'External Image',
+            self::TYPE_VIDEO => 'Youtube Video',
+        );
     }
 
     /**

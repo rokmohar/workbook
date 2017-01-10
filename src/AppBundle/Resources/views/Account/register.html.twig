@@ -1,5 +1,21 @@
 {% extends 'frontend/layout.html.twig' %}
 
+{% form_theme userForm _self %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if compound %}
+            {% for error in errors %}
+                <div class="alert alert-danger" role="alert">{{ error.message }}</div>
+            {% endfor %}
+        {% else %}
+            {% for error in errors %}
+                <span class="help-block">{{ error.message }}</span>
+            {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
 {% block header %}
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -13,32 +29,52 @@
 
 {% block content %}
     <div class="container login-container" role="main">
-        <form class="panel panel-default" action="{{ path('register') }}" method="POST">
+        {{ form_start(userForm, { 'action': path('register'), 'method': 'POST' }) }}
+        {{ form_errors(userForm) }}
+        {{ form_widget(userForm._token) }}
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Register
             </div>
             <div class="panel-body">
-                <div class="form-group">
-                    <label for="name" class="sr-only">Name</label>
-                    <input type="email" id="name" name="name" class="form-control" placeholder="Name" required>
+                <div class="{{ 'form-group' ~ (userForm.name.vars.errors|length ? ' has-error') }}">
+                    {{ form_label(userForm.name, null, { 'label_attr': { 'class': 'sr-only' } }) }}
+                    {{ form_widget(userForm.name, { 'attr': {
+                        'class': 'form-control',
+                        'placeholder': userForm.name.vars.label,
+                    } }) }}
+                    {{ form_errors(userForm.name) }}
                 </div>
-                <div class="form-group">
-                    <label for="email" class="sr-only">Email address</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required>
+                <div class="{{ 'form-group' ~ (userForm.email.vars.errors|length ? ' has-error') }}">
+                    {{ form_label(userForm.email, null, { 'label_attr': { 'class': 'sr-only' } }) }}
+                    {{ form_widget(userForm.email, { 'attr': {
+                        'class': 'form-control',
+                        'placeholder': userForm.email.vars.label,
+                    } }) }}
+                    {{ form_errors(userForm.email) }}
                 </div>
-                <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <div class="{{ 'form-group' ~ (userForm.plainPassword.first.vars.errors|length ? ' has-error') }}">
+                    {{ form_label(userForm.plainPassword.first, null, { 'label_attr': { 'class': 'sr-only' } }) }}
+                    {{ form_widget(userForm.plainPassword.first, { 'attr': {
+                        'class': 'form-control',
+                        'placeholder': userForm.plainPassword.first.vars.label,
+                    } }) }}
+                    {{ form_errors(userForm.plainPassword.first) }}
                 </div>
-                <div class="form-group">
-                    <label for="confirmPassword" class="sr-only">Confirm password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required>
+                <div class="{{ 'form-group' ~ (userForm.plainPassword.second.vars.errors|length ? ' has-error') }}">
+                    {{ form_label(userForm.plainPassword.second, null, { 'label_attr': { 'class': 'sr-only' } }) }}
+                    {{ form_widget(userForm.plainPassword.second, { 'attr': {
+                        'class': 'form-control',
+                        'placeholder': userForm.plainPassword.second.vars.label,
+                    } }) }}
+                    {{ form_errors(userForm.plainPassword.second) }}
                 </div>
             </div>
             <div class="panel-footer panel-action">
                 <a href="{{ path('login') }}" class="btn btn-default" type="submit">I have account</a>
-                <button class="btn btn-primary pull-right" type="submit">Register</button>
+                {{ form_widget(userForm.submit, { 'attr': { 'class': 'btn btn-primary pull-right' } }) }}
             </div>
-        </form>
+        </div>
+        {{ form_end(userForm, { 'render_rest': false }) }}
     </div>
 {% endblock %}

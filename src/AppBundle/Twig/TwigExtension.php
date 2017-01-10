@@ -6,7 +6,7 @@ use CoreBundle\Entity\PostCommentInterface;
 use CoreBundle\Entity\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class UserExtension extends \Twig_Extension
+class TwigExtension extends \Twig_Extension
 {
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
@@ -21,6 +21,16 @@ class UserExtension extends \Twig_Extension
     public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilters()
+    {
+        return array(
+            new \Twig_SimpleFilter('time_ago', array($this, 'timeAgo')),
+        );
     }
 
     /**
@@ -52,6 +62,40 @@ class UserExtension extends \Twig_Extension
     public function isRespondent(PostCommentInterface $comment)
     {
         return $this->isOwner($comment->getRespondent());
+    }
+
+    /**
+     * @param \DateTime $datetime
+     *
+     * @return string
+     */
+    public function timeAgo(\DateTime $datetime)
+    {
+        $time = time() - $datetime->getTimestamp();
+
+        $units = array(
+            31536000 => 'year',
+            2592000 => 'month',
+            604800 => 'week',
+            86400 => 'day',
+            3600 => 'hour',
+            60 => 'minute',
+            1 => 'second'
+        );
+
+        foreach ($units as $unit => $val) {
+            if ($unit <= $time) {
+                $numberOfUnits = floor($time / $unit);
+
+                return ($val == 'second') ? 'a few seconds ago' : sprintf("%s %s%s ago",
+                    (1 < $numberOfUnits) ? $numberOfUnits : 'a',
+                    $val,
+                    (1 < $numberOfUnits) ? 's' : ''
+                );
+            }
+        }
+
+        return '';
     }
 
     /**

@@ -51,6 +51,26 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function setName($name);
 
     /**
+     * @return string
+     */
+    public function getAbout();
+
+    /**
+     * @param string $about
+     */
+    public function setAbout($about);
+
+    /**
+     * @return string
+     */
+    public function getAvatar();
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar($avatar);
+
+    /**
      * @return integer
      */
     public function getState();
@@ -59,6 +79,11 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
      * @param integer $state
      */
     public function setState($state);
+
+    /**
+     * @return string
+     */
+    public function getStateLabel();
 
     /**
      * @return \DateTime
@@ -142,6 +167,8 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
 
     /**
      * @param mixed $user
+     *
+     * @return boolean
      */
     public function equals($user);
 

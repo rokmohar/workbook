@@ -30,7 +30,7 @@ class PostComment implements PostCommentInterface
     /**
      * @var \CoreBundle\Entity\UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User", inversedBy="postComments")
      * @ORM\JoinColumn(name="respondent_id", referencedColumnName="id")
      */
     protected $respondent;

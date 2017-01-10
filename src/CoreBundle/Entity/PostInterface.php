@@ -4,12 +4,16 @@ namespace CoreBundle\Entity;
 
 interface PostInterface
 {
-    const STATE_ACTIVE   = 0;
-    const STATE_DISABLED = 5;
+    const TYPE_POST  = 0;
+    const TYPE_IMAGE = 5;
+    const TYPE_VIDEO = 10;
 
     const PRIVACY_PUBLIC  = 0;
     const PRIVACY_FRIENDS = 5;
     const PRIVACY_PRIVATE = 10;
+
+    const STATE_ACTIVE   = 0;
+    const STATE_DISABLED = 5;
 
     /**
      * @return integer
@@ -44,12 +48,32 @@ interface PostInterface
     /**
      * @return integer
      */
+    public function getType();
+
+    /**
+     * @param integer $type
+     */
+    public function setType($type);
+
+    /**
+     * @return string
+     */
+    public function getTypeLabel();
+
+    /**
+     * @return integer
+     */
     public function getPrivacy();
 
     /**
      * @param integer $privacy
      */
     public function setPrivacy($privacy);
+
+    /**
+     * @return string
+     */
+    public function getPrivacyLabel();
 
     /**
      * @return integer
@@ -60,6 +84,11 @@ interface PostInterface
      * @param integer $state
      */
     public function setState($state);
+
+    /**
+     * @return string
+     */
+    public function getStateLabel();
 
     /**
      * @return \DateTime
@@ -130,6 +159,11 @@ interface PostInterface
      * @param \CoreBundle\Entity\PostReactionInterface $reaction
      */
     public function removeReaction(PostReactionInterface $reaction);
+
+    /**
+     * @return array
+     */
+    public static function getTypes();
 
     /**
      * @return array

@@ -1,73 +1,111 @@
 {% extends 'frontend/layout.html.twig' %}
 
+{% form_theme postForm _self %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if compound %}
+            {% for error in errors %}
+                <div class="alert alert-danger" role="alert">{{ error.message }}</div>
+            {% endfor %}
+        {% else %}
+            {% for error in errors %}
+                <span class="help-block">{{ error.message }}</span>
+            {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
 {% block content %}
     <div class="container" role="main">
         <div class="row">
+            {{ form_start(postForm, { 'action': path('homepage'), 'method': 'POST' }) }}
+            {{ form_errors(postForm) }}
+            {{ form_widget(postForm._token) }}
             <div class="panel panel-default">
-                <form method="POST" action="#" class="panel-body">
-                    <textarea id="status" name="status"class="form-control" rows="3" placeholder="What is on your mind?" style="resize: vertical;"></textarea>
-                </form>
+                <div class="panel-body">
+                    <div class="{{ 'form-group' ~ (postForm.content.vars.errors|length ? ' has-error') }}">
+                        {{ form_widget(postForm.content, { 'attr': {
+                            'class': 'form-control',
+                            'placeholder': postForm.content.vars.label,
+                            'rows': 3,
+                            'style': 'resize: vertical;',
+                        } }) }}
+                        {{ form_errors(postForm.content) }}
+                    </div>
+                    <div class="{{ 'form-group' ~ (postForm.type.vars.errors|length ? ' has-error') }}">
+                        {{ form_label(postForm.type) }}
+                        {{ form_widget(postForm.type, { 'attr': {
+                            'class': 'form-control',
+                        } }) }}
+                        {{ form_errors(postForm.type) }}
+                    </div>
+                    <div class="{{ 'form-group' ~ (postForm.privacy.vars.errors|length ? ' has-error') }}">
+                        {{ form_label(postForm.privacy) }}
+                        {{ form_widget(postForm.privacy, { 'attr': {
+                            'class': 'form-control',
+                        } }) }}
+                        {{ form_errors(postForm.privacy) }}
+                    </div>
+                </div>
                 <div class="panel-footer panel-action">
                     <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
+                {{ form_end(postForm, { 'render_rest': false }) }}
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="#" class="panel-heading-img pull-left">
-                        <img src="/frontend/images/avatars/simpson.jpg" alt="" width="60" height="60" />
-                    </a>
-                    <div class="panel-action panel-heading-action">
-                        <div class="action-block">
-                            <a href="#">Rok Mohar</a> shared a <a href="#">video</a>.
-                        </div>
-                        <div class="action-block action-time">
-                            53 minutes ago
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body panel-video">
-                    <iframe src="https://www.youtube.com/embed/CWujSgCrXjc" allowfullscreen></iframe>
-                </div>
-            </div>
+            {% for post in timeline %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="{{ path('profile', { id: post.user.id }) }}" class="panel-heading-img pull-left">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="#" class="panel-heading-img pull-left">
-                        <img src="/frontend/images/avatars/john_cena.png" alt="" width="60" height="60" />
-                    </a>
-                    <div class="panel-action panel-heading-action">
-                        <div class="action-block">
-                            <a href="#">John Cena</a> shared a <a href="#">photo</a>.
-                        </div>
-                        <div class="action-block action-time">
-                            53 minutes ago
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body panel-img">
-                    <img src="/frontend/images/posts/donald_trump.jpg" alt="" class="img-responsive" />
-                </div>
-            </div>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="#" class="panel-heading-img pull-left">
-                        <img src="/frontend/images/avatars/hillary_clinton.jpg" alt="" width="60" height="60" />
-                    </a>
-                    <div class="panel-action panel-heading-action">
-                        <div class="action-block">
-                            <a href="#">Hillary Clinton</a> shared a <a href="#">post</a>.
-                        </div>
-                        <div class="action-block action-time">
-                            53 minutes ago
+                            {% if post.user.avatar %}
+                                <img src="{{ post.user.avatar }}" alt="" width="60" height="60" />
+                            {% else %}
+                                <img src="/frontend/images/avatars/no_avatar.jpg" alt="" width="60" height="60" />
+                            {% endif %}
+                        </a>
+                        <div class="panel-action panel-heading-action">
+                            <div class="action-block">
+                                <a href="{{ path('profile', { id: post.user.id }) }}">{{ post.user.name }}</a>
+                            </div>
+                            <div class="action-block action-time">
+                                {{ post.createdAt|time_ago }}
+                            </div>
                         </div>
                     </div>
+                    {% if post.type == 10 %}
+                        <div class="panel-body panel-video">
+                            <iframe src="{{ post.content }}" allowfullscreen></iframe>
+                        </div>
+                    {% elseif post.type == 5 %}
+                        <div class="panel-body panel-img">
+                            <img src="{{ post.content }}" alt="" class="img-responsive" />
+                        </div>
+                    {% else %}
+                        <div class="panel-body">
+                            {{ post.content|nl2br }}
+                        </div>
+                    {% endif %}
+                    <div class="panel-footer" style="color: #999;">
+                        <div>{{ post.comments|length }} Comments - {{ post.reactions|length }} Likes</div>
+                    </div>
+                    {% if post.comments|length %}
+                        <div class="panel-footer">
+                            Comments are here
+                        </div>
+                    {% endif %}
+                    <div class="panel-footer">
+                        [comment_form]
+                    </div>
                 </div>
-                <div class="panel-body">
-                    Donald Trump is the best choice for the president! <a href="#">#TrumpPence2016</a> <a href="#">#MAGA</a>
+            {% else %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        No posts on your timeline.
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

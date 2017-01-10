@@ -1,6 +1,6 @@
 services:
-    workbook.user_twig_extension:
-        class: AppBundle\Twig\UserExtension
+    workbook.app_twig_extension:
+        class: AppBundle\Twig\TwigExtension
         public: false
         tags:
             - { name: twig.extension }

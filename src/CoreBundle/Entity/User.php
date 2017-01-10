@@ -4,10 +4,15 @@ namespace CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="users")
+ * @ORM\Table(name="users", uniqueConstraints={
+ *     @ORM\UniqueConstraint(columns={"email"})
+ * })
+ * @UniqueEntity("email", groups = {"register"})
  */
 class User implements UserInterface, \Serializable
 {
@@ -24,6 +29,10 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true)
+     *
+     * @Assert\Email(groups = {"register"})
+     * @Assert\NotBlank(groups = {"register"})
+     * @Assert\Type("string", groups = {"register"})
      */
     protected $email;
 
@@ -36,6 +45,10 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string
+     *
+     * @Assert\Length(min = 6, max = 255, groups = {"register"})
+     * @Assert\NotBlank(groups = {"register"})
+     * @Assert\Type("string", groups = {"register"})
      */
     protected $plainPassword;
 
@@ -43,13 +56,40 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\Length(min = 6, max = 255, groups = {"register"})
+     * @Assert\NotBlank(groups = {"register"})
+     * @Assert\Type("string", groups = {"register"})
      */
     protected $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=true)
+     *
+     * @Assert\Length(min = 20, max = 1000, groups = {})
+     * @Assert\Type("text", groups = {})
+     */
+    protected $about;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Assert\Length(min = 6, max = 255, groups = {})
+     * @Assert\Type("string", groups = {})
+     */
+    protected $avatar;
 
     /**
      * @var integer
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
+     *
+     * @Assert\Choice(choices = "getTypes", groups = {})
+     * @Assert\Type("integer", groups = {})
      */
     protected $state;
 
@@ -90,6 +130,7 @@ class User implements UserInterface, \Serializable
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="CoreBundle\Entity\Post", mappedBy="user")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     protected $posts;
 
@@ -212,6 +253,42 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
+    public function getAbout()
+    {
+        return $this->about;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAbout($about)
+    {
+        $this->about = $about;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getState()
     {
         return $this->state;
@@ -225,6 +302,14 @@ class User implements UserInterface, \Serializable
         $this->state = $state;
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStateLabel()
+    {
+        return self::getStates()[$this->getType()];
     }
 
     /**
