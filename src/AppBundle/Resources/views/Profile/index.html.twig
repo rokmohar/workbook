@@ -123,7 +123,19 @@
                                 </div>
                             {% endif %}
                             <div class="panel-footer" style="color: #999;">
-                                <div>{{ post.comments|length }} Comments - {{ post.reactions|length }} Likes</div>
+                                <div>
+                                    <span data-post="{{ post.id }}" class="comment-count">{{ post.comments|length }}</span> Comments
+                                    -
+                                    <span data-post="{{ post.id }}" class="like-count">{{ post.reactions|length }}</span> Likes</div>
+                                <div>
+                                    {% if post.hasReaction(app.user) %}
+                                        <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">Unlike</a>
+                                        <a href="#" data-trigger="post-like" data-href="{{ path('api_delete_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}" style="display: none;">Like</a>
+                                    {% else %}
+                                        <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}" style="display: none;">Unlike</a>
+                                        <a href="#" data-trigger="post-like" data-href="{{ path('api_delete_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">Like</a>
+                                    {% endif %}
+                                </div>
                             </div>
                             {% if post.comments|length %}
                                 <div class="panel-footer">
