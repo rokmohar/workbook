@@ -1,6 +1,6 @@
-admin:
-    resource: "@AdminBundle/Controller/"
-    type:     annotation
+#admin:
+#    resource: "@AdminBundle/Controller/"
+#    type:     annotation
 
 api:
     prefix:   /api
