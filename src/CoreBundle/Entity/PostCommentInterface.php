@@ -4,6 +4,9 @@ namespace CoreBundle\Entity;
 
 interface PostCommentInterface
 {
+    const STATE_ACTIVE   = 0;
+    const STATE_DISABLED = 5;
+
     /**
      * @return integer
      */
@@ -45,6 +48,16 @@ interface PostCommentInterface
     public function setContent($content);
 
     /**
+     * @return integer
+     */
+    public function getState();
+
+    /**
+     * @param integer $state
+     */
+    public function setState($state);
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt();
@@ -63,4 +76,9 @@ interface PostCommentInterface
      * @param \DateTime $updatedAt
      */
     public function setUpdatedAt(\DateTime $updatedAt);
+
+    /**
+     * @return array
+     */
+    public static function getStates();
 }

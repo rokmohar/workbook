@@ -2,9 +2,8 @@
 
 namespace AppBundle\Form;
 
-use CoreBundle\Entity\User;
+use CoreBundle\Entity\Admin;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -12,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class AdminType extends AbstractType
 {
     /**
      * {@inheritDoc}
@@ -35,16 +34,6 @@ class UserType extends AbstractType
                 ),
                 'type' => PasswordType::class,
             ))
-            ->add('name', TextType::class, array(
-                'label' => 'Name',
-                'required' => true,
-                'trim' => true,
-            ))
-            ->add('state', ChoiceType::class, array(
-                'choices'  => array_flip(User::getStates()),
-                'label' => 'State',
-                'required' => true,
-            ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Submit',
             ))
@@ -57,7 +46,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => User::class,
+            'data_class' => Admin::class,
         ));
     }
 }

@@ -28,6 +28,10 @@ security:
             pattern: ^/(_(profiler|wdt)|bundles|images|scripts|styles|vendor)/
             security: false
 
+        api:
+            pattern: ^/api
+            security: false
+
         admin:
             pattern: ^/admin
             anonymous: ~

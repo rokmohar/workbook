@@ -21,17 +21,12 @@ class PostRepository extends EntityRepository
             PostInterface::PRIVACY_PUBLIC,
         );
 
-        if ($guest->equals($user)) {
+        if ($guest->isEqual($user)) {
+            $privacy[] = PostInterface::PRIVACY_FRIENDS;
             $privacy[] = PostInterface::PRIVACY_PRIVATE;
         }
-        else {
-            /** @var \CoreBundle\Entity\UserInterface $p */
-            foreach ($user->getPeople() as $p) {
-                if ($guest->equals($p)) {
-                    $privacy[] = PostInterface::PRIVACY_FRIENDS;
-                    break;
-                }
-            }
+        else if ($user->isFriend($guest)) {
+            $privacy[] = PostInterface::PRIVACY_FRIENDS;
         }
 
         $qb
@@ -70,7 +65,7 @@ class PostRepository extends EntityRepository
             ->orderBy('p.createdAt', 'DESC')
             ->setParameters(array(
                 'creator' => $user,
-                'people' => $user->getPeople(),
+                'people' => $user->getFriends()->toArray(),
             ))
         ;
 

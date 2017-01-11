@@ -28,15 +28,15 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Friends ({{ user.people|length }})
+                        Friends ({{ user.friends|length }})
                     </div>
-                    {% if not user.people %}
+                    {% if not user.friends %}
                         <div class="panel-heading">
                             No friends.
                         </div>
                     {% else %}
                         <ul class="list-group">
-                            {% for person in user.people %}
+                            {% for person in user.friends %}
                                 <a href="{{ path('profile', { id: person.id }) }}" class="list-group-item">{{ person.name }}</a>
                             {% endfor %}
                         </ul>

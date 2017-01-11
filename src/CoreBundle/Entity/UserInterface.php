@@ -111,49 +111,26 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function getFriends();
 
     /**
-     * @param array $users
+     * @param \CoreBundle\Entity\UserInterface $person
+     *
+     * @return boolean
      */
-    public function addFriends(array $users);
+    public function isFriend(UserInterface $person);
 
     /**
-     * @param array $users
+     * @param \CoreBundle\Entity\UserInterface $person
      */
-    public function removeFriends(array $users);
+    public function addFriend(UserInterface $person);
 
     /**
-     * @param \CoreBundle\Entity\UserInterface $user
+     * @param \CoreBundle\Entity\UserInterface $person
      */
-    public function addFriend(UserInterface $user);
-
-    /**
-     * @param \CoreBundle\Entity\UserInterface $user
-     */
-    public function removeFriend(UserInterface $user);
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFriendsBy();
-
-    /**
-     * @return array
-     */
-    public function getPeople();
+    public function removeFriend(UserInterface $person);
 
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getPosts();
-
-    /**
-     * @param array $posts
-     */
-    public function addPosts(array $posts);
-
-    /**
-     * @param array $posts
-     */
-    public function removePosts(array $posts);
 
     /**
      * @param \CoreBundle\Entity\PostInterface $post
@@ -166,11 +143,11 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function removePost(PostInterface $post);
 
     /**
-     * @param mixed $user
+     * @param \CoreBundle\Entity\UserInterface $user
      *
      * @return boolean
      */
-    public function equals($user);
+    public function isEqual(UserInterface $user);
 
     /**
      * @return array

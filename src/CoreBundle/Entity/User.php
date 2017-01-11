@@ -3,7 +3,10 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Query\Expr\Comparison;
+use Doctrine\ORM\Query\Expr\Orx;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -122,42 +125,31 @@ class User implements UserInterface, \Serializable
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", mappedBy="friends")
+     * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", mappedBy="friends", cascade={"persist"})
      **/
     private $friendsBy;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\Post", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\Post", mappedBy="user", cascade={"persist"})
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     protected $posts;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostComment", mappedBy="respondent")
-     */
-    protected $postComments;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostReaction", mappedBy="respondent")
-     */
-    protected $postReactions;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
+        $this->state = self::STATE_PENDING;
+
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
-        $this->friends = new ArrayCollection();
+
+        $this->friends   = new ArrayCollection();
         $this->friendsBy = new ArrayCollection();
-        $this->posts = new ArrayCollection();
+        $this->posts     = new ArrayCollection();
     }
 
     /**
@@ -353,31 +345,30 @@ class User implements UserInterface, \Serializable
      */
     public function getFriends()
     {
-        return $this->friends;
+        return new ArrayCollection(array_merge(
+            $this->friends->toArray(),
+            $this->friendsBy->toArray()
+        ));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function addFriends(array $friends)
+    public function isFriend(UserInterface $person)
     {
-        /** @var \CoreBundle\Entity\UserInterface $f */
-        foreach ($friends as $f) {
-            $this->addFriend($f);
+        return ($this->getFriends()->contains($person));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addFriend(UserInterface $person)
+    {
+        if (strcmp($this->getId(), $person->getId()) < 0) {
+            return $person->addFriend($this);
         }
 
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeFriends(array $friends)
-    {
-        /** @var \CoreBundle\Entity\UserInterface $f */
-        foreach ($friends as $f) {
-            $this->removeFriend($f);
-        }
+        $this->friends->add($person);
 
         return $this;
     }
@@ -385,37 +376,12 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
-    public function addFriend(UserInterface $friend)
+    public function removeFriend(UserInterface $person)
     {
-        $this->friends->add($friend);
+        $this->friends->removeElement($person);
+        $this->friendsBy->removeElement($person);
 
         return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeFriend(UserInterface $friend)
-    {
-        $this->friends->removeElement($friend);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getFriendsBy()
-    {
-        return $this->friendsBy;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPeople()
-    {
-        return array_merge($this->getFriends()->toArray(), $this->getFriendsBy()->toArray());
     }
 
     /**
@@ -429,34 +395,9 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
-    public function addPosts(array $posts)
-    {
-        /** @var \CoreBundle\Entity\PostInterface $p */
-        foreach ($posts as $p) {
-            $this->addPost($p);
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removePosts(array $posts)
-    {
-        /** @var \CoreBundle\Entity\PostInterface $p */
-        foreach ($posts as $p) {
-            $this->removePost($p);
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function addPost(PostInterface $post)
     {
+        $post->setUser($this);
         $this->posts->add($post);
 
         return $this;
@@ -475,16 +416,9 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
-    public function equals($user)
+    public function isEqual(UserInterface $user)
     {
-        if ($user instanceof UserInterface) {
-            return (strcmp($this->getId(), $user->getId()) === 0);
-        }
-        else if (is_string($user)) {
-            return (strcmp($this->getUsername(), $user) === 0);
-        }
-
-        return false;
+        return (strcmp($this->getId(), $user->getId()) === 0);
     }
 
     /**

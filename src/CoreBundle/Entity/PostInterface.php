@@ -116,16 +116,6 @@ interface PostInterface
     public function getComments();
 
     /**
-     * @param array $comments
-     */
-    public function addComments(array $comments);
-
-    /**
-     * @param array $comments
-     */
-    public function removeComments(array $comments);
-
-    /**
      * @param \CoreBundle\Entity\PostCommentInterface $comment
      */
     public function addComment(PostCommentInterface $comment);
@@ -141,16 +131,6 @@ interface PostInterface
     public function getReactions();
 
     /**
-     * @param array $reactions
-     */
-    public function addReactions(array $reactions);
-
-    /**
-     * @param array $reactions
-     */
-    public function removeReactions(array $reactions);
-
-    /**
      * @param \CoreBundle\Entity\PostReactionInterface $reaction
      */
     public function addReaction(PostReactionInterface $reaction);
@@ -159,6 +139,13 @@ interface PostInterface
      * @param \CoreBundle\Entity\PostReactionInterface $reaction
      */
     public function removeReaction(PostReactionInterface $reaction);
+
+    /**
+     * @param \CoreBundle\Entity\UserInterface $user
+     *
+     * @return boolean
+     */
+    public function hasReaction(UserInterface $user);
 
     /**
      * @return array

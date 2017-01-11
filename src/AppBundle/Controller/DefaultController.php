@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\PostType;
+use CoreBundle\Entity\Post;
 use CoreBundle\Entity\PostInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,7 +22,7 @@ class DefaultController extends Controller
         /** @var \CoreBundle\Doctrine\PostManagerInterface $manager */
         $manager = $this->get('workbook.post_manager');
 
-        $postForm = $this->createForm(PostType::class);
+        $postForm = $this->createForm(PostType::class, new Post());
         $postForm->handleRequest($request);
 
         /** @var \CoreBundle\Entity\UserInterface $self */

@@ -3,6 +3,7 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity
@@ -16,6 +17,8 @@ class PostReaction implements PostReactionInterface
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMS\Type("integer")
      */
     protected $id;
 
@@ -30,7 +33,7 @@ class PostReaction implements PostReactionInterface
     /**
      * @var \CoreBundle\Entity\UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User", inversedBy="postReactions")
+     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User")
      * @ORM\JoinColumn(name="respondent_id", referencedColumnName="id")
      */
     protected $respondent;

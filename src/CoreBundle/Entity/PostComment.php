@@ -3,6 +3,8 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -16,6 +18,8 @@ class PostComment implements PostCommentInterface
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMS\Type("integer")
      */
     protected $id;
 
@@ -30,7 +34,7 @@ class PostComment implements PostCommentInterface
     /**
      * @var \CoreBundle\Entity\UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User", inversedBy="postComments")
+     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User")
      * @ORM\JoinColumn(name="respondent_id", referencedColumnName="id")
      */
     protected $respondent;
@@ -39,8 +43,21 @@ class PostComment implements PostCommentInterface
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(groups = {"create"})
+     * @Assert\Type("text", groups = {"create"})
      */
     protected $content;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"unsigned"=true})
+     *
+     * @Assert\Choice(choices = "getStates", groups = {"create"})
+     * @Assert\Type("integer", groups = {"create"})
+     */
+    protected $state;
 
     /**
      * @var \DateTime
@@ -140,6 +157,24 @@ class PostComment implements PostCommentInterface
     /**
      * {@inheritDoc}
      */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
@@ -171,5 +206,16 @@ class PostComment implements PostCommentInterface
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function getStates()
+    {
+        return array(
+            self::STATE_ACTIVE   => 'Active',
+            self::STATE_DISABLED => 'Disabled',
+        );
     }
 }

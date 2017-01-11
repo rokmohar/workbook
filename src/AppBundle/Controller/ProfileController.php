@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\PostType;
+use CoreBundle\Entity\Post;
 use CoreBundle\Entity\PostInterface;
 use CoreBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,7 +15,6 @@ class ProfileController extends Controller
     /**
      * @param \CoreBundle\Entity\User $user
      * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/profile/{id}", name="profile")
@@ -24,14 +24,14 @@ class ProfileController extends Controller
         /** @var \CoreBundle\Doctrine\PostManagerInterface $manager */
         $manager = $this->get('workbook.post_manager');
 
-        $postForm = $this->createForm(PostType::class);
+        $postForm = $this->createForm(PostType::class, new Post());
         $postForm->handleRequest($request);
 
         /** @var \CoreBundle\Entity\UserInterface $self */
         $self = $this->getUser();
 
         if ($postForm->isSubmitted()) {
-            if (!$user->equals($self)) {
+            if (!$user->isEqual($self)) {
                 throw new \RuntimeException();
             }
 

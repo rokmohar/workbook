@@ -2,7 +2,9 @@
 
 namespace CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,6 +19,8 @@ class Post implements PostInterface
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMS\Type("integer")
      */
     protected $id;
 
@@ -44,7 +48,7 @@ class Post implements PostInterface
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
      * @Assert\Choice(choices = "getTypes", groups = {"create"})
-     * @Assert\Type("text", groups = {"integer"})
+     * @Assert\Type("integer", groups = {"create"})
      */
     protected $type;
 
@@ -54,7 +58,7 @@ class Post implements PostInterface
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
      * @Assert\Choice(choices = "getPrivacies", groups = {"create"})
-     * @Assert\Type("text", groups = {"integer"})
+     * @Assert\Type("integer", groups = {"create"})
      */
     protected $privacy;
 
@@ -64,7 +68,7 @@ class Post implements PostInterface
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
      * @Assert\Choice(choices = "getStates", groups = {"create"})
-     * @Assert\Type("text", groups = {"integer"})
+     * @Assert\Type("integer", groups = {"create"})
      */
     protected $state;
 
@@ -85,14 +89,14 @@ class Post implements PostInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostComment", mappedBy="respondent")
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostComment", mappedBy="post", cascade={"persist"})
      */
     protected $comments;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostComment", mappedBy="respondent")
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostReaction", mappedBy="post", cascade={"persist"})
      */
     protected $reactions;
 
@@ -101,8 +105,15 @@ class Post implements PostInterface
      */
     public function __construct()
     {
+        $this->type    = self::TYPE_POST;
+        $this->privacy = self::PRIVACY_PUBLIC;
+        $this->state   = self::STATE_ACTIVE;
+
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+
+        $this->comments  = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     /**
@@ -208,7 +219,7 @@ class Post implements PostInterface
      */
     public function getPrivacyLabel()
     {
-        return self::getPrivacies()[$this->getType()];
+        return self::getPrivacies()[$this->getPrivacy()];
     }
 
     /**
@@ -234,7 +245,7 @@ class Post implements PostInterface
      */
     public function getStateLabel()
     {
-        return self::getStates()[$this->getType()];
+        return self::getStates()[$this->getState()];
     }
 
     /**
@@ -284,32 +295,6 @@ class Post implements PostInterface
     /**
      * {@inheritDoc}
      */
-    public function addComments(array $comments)
-    {
-        /** @var \CoreBundle\Entity\PostCommentInterface $c */
-        foreach ($comments as $c) {
-            $this->addComment($c);
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeComments(array $comments)
-    {
-        /** @var \CoreBundle\Entity\PostCommentInterface $c */
-        foreach ($comments as $c) {
-            $this->removeComment($c);
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function addComment(PostCommentInterface $comment)
     {
         $this->comments->add($comment);
@@ -338,32 +323,6 @@ class Post implements PostInterface
     /**
      * {@inheritDoc}
      */
-    public function addReactions(array $reactions)
-    {
-        /** @var \CoreBundle\Entity\PostReactionInterface $r */
-        foreach ($reactions as $r) {
-            $this->addReaction($r);
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeReactions(array $reactions)
-    {
-        /** @var \CoreBundle\Entity\PostReactionInterface $r */
-        foreach ($reactions as $r) {
-            $this->removeReaction($r);
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function addReaction(PostReactionInterface $reaction)
     {
         $this->reactions->add($reaction);
@@ -379,6 +338,21 @@ class Post implements PostInterface
         $this->reactions->removeElement($reaction);
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasReaction(UserInterface $user)
+    {
+        /** @var \CoreBundle\Entity\PostReactionInterface $r */
+        foreach ($this->getReactions() as $r) {
+            if ($user->isEqual($r->getRespondent())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -402,6 +376,25 @@ class Post implements PostInterface
             self::STATE_ACTIVE   => 'Active',
             self::STATE_DISABLED => 'Disabled',
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isAllowed(UserInterface $user)
+    {
+        $owner = $this->getUser();
+
+        if ($user->isEqual($owner)) {
+            return true;
+        }
+
+        $privacies = array(
+            self::PRIVACY_PUBLIC,
+            self::PRIVACY_FRIENDS,
+        );
+
+        return ($owner->isFriend($user) && in_array($this->getPrivacy(), $privacies));
     }
 
     /**

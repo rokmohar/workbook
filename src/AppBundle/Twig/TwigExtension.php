@@ -51,7 +51,7 @@ class TwigExtension extends \Twig_Extension
      */
     public function isOwner(UserInterface $user)
     {
-        return ($token = $this->tokenStorage->getToken()) ? $user->equals($token->getUser()) : false;
+        return ($token = $this->tokenStorage->getToken()) ? $user->isEqual($token->getUser()) : false;
     }
 
     /**
