@@ -305,16 +305,6 @@ class Post implements PostInterface
     /**
      * {@inheritDoc}
      */
-    public function removeComment(PostCommentInterface $comment)
-    {
-        $this->comments->removeElement($comment);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getReactions()
     {
         return $this->reactions;
@@ -326,16 +316,6 @@ class Post implements PostInterface
     public function addReaction(PostReactionInterface $reaction)
     {
         $this->reactions->add($reaction);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeReaction(PostReactionInterface $reaction)
-    {
-        $this->reactions->removeElement($reaction);
 
         return $this;
     }

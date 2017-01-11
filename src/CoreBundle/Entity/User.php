@@ -395,27 +395,6 @@ class User implements UserInterface, \Serializable
     /**
      * {@inheritDoc}
      */
-    public function addPost(PostInterface $post)
-    {
-        $post->setUser($this);
-        $this->posts->add($post);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removePost(PostInterface $post)
-    {
-        $this->posts->removeElement($post);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function isEqual(UserInterface $user)
     {
         return (strcmp($this->getId(), $user->getId()) === 0);

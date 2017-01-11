@@ -121,11 +121,6 @@ interface PostInterface
     public function addComment(PostCommentInterface $comment);
 
     /**
-     * @param \CoreBundle\Entity\PostCommentInterface $comment
-     */
-    public function removeComment(PostCommentInterface $comment);
-
-    /**
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getReactions();
@@ -134,11 +129,6 @@ interface PostInterface
      * @param \CoreBundle\Entity\PostReactionInterface $reaction
      */
     public function addReaction(PostReactionInterface $reaction);
-
-    /**
-     * @param \CoreBundle\Entity\PostReactionInterface $reaction
-     */
-    public function removeReaction(PostReactionInterface $reaction);
 
     /**
      * @param \CoreBundle\Entity\UserInterface $user

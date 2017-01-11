@@ -133,16 +133,6 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function getPosts();
 
     /**
-     * @param \CoreBundle\Entity\PostInterface $post
-     */
-    public function addPost(PostInterface $post);
-
-    /**
-     * @param \CoreBundle\Entity\PostInterface $post
-     */
-    public function removePost(PostInterface $post);
-
-    /**
      * @param \CoreBundle\Entity\UserInterface $user
      *
      * @return boolean
