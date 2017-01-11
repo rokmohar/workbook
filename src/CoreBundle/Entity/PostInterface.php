@@ -126,14 +126,14 @@ interface PostInterface
     public function getReactions();
 
     /**
-     * @param \CoreBundle\Entity\UserInterface $reaction
+     * @param \CoreBundle\Entity\UserInterface $user
      */
-    public function addReaction(UserInterface $reaction);
+    public function addReaction(UserInterface $user);
 
     /**
-     * @param \CoreBundle\Entity\UserInterface $reaction
+     * @param \CoreBundle\Entity\UserInterface $user
      */
-    public function removeReaction(UserInterface $reaction);
+    public function removeReaction(UserInterface $user);
 
     /**
      * @param \CoreBundle\Entity\UserInterface $user

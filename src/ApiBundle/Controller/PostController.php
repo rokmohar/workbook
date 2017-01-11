@@ -74,22 +74,10 @@ class PostController extends FOSRestController
             }
         }
 
-        $reactionRepository = $this->getPostReactionRepository();
+        $post->addReaction($user);
 
-        /** @var \CoreBundle\Entity\PostReactionInterface $reaction */
-        $reaction = $reactionRepository->findOneBy(['post' => $post, 'respondent' => $user]);
-
-        if (!$reaction) {
-            // Add reaction and persist to database
-            $reaction = new PostReaction();
-            $reaction->setPost($post);
-            $reaction->setRespondent($user);
-
-            $post->addReaction($reaction);
-
-            $postManager = $this->getPostManager();
-            $postManager->updatePost($post);
-        }
+        $postManager = $this->getPostManager();
+        $postManager->updatePost($post);
 
         return new JsonResponse();
     }
@@ -156,17 +144,10 @@ class PostController extends FOSRestController
             }
         }
 
-        $reactionRepository = $this->getPostReactionRepository();
+        $post->removeReaction($user);
 
-        /** @var \CoreBundle\Entity\PostReactionInterface $reaction */
-        $reaction = $reactionRepository->findOneBy(['post' => $post, 'respondent' => $user]);
-
-        if ($reaction) {
-            // Remove reaction from database
-            $manager = $this->getDoctrine()->getManager();
-            $manager->remove($reaction);
-            $manager->flush();
-        }
+        $postManager = $this->getPostManager();
+        $postManager->updatePost($post);
 
         return new JsonResponse();
     }
@@ -185,22 +166,6 @@ class PostController extends FOSRestController
     protected function getPostRepository()
     {
         return $this->getPostManager()->getObjectRepository();
-    }
-
-    /**
-     * @return \Doctrine\Common\Persistence\ObjectRepository
-     */
-    protected function getPostCommentRepository()
-    {
-        return $this->getDoctrine()->getRepository(PostComment::class);
-    }
-
-    /**
-     * @return \Doctrine\Common\Persistence\ObjectRepository
-     */
-    protected function getPostReactionRepository()
-    {
-        return $this->getDoctrine()->getRepository(PostReaction::class);
     }
 
     /**
