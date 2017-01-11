@@ -4,7 +4,6 @@ namespace CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,8 +18,6 @@ class Post implements PostInterface
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @JMS\Type("integer")
      */
     protected $id;
 
@@ -37,8 +34,8 @@ class Post implements PostInterface
      *
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(groups = {"create"})
-     * @Assert\Type("text", groups = {"create"})
+     * @Assert\NotBlank(groups = {"create", "update"})
+     * @Assert\Type("text", groups = {"create", "update"})
      */
     protected $content;
 
@@ -47,8 +44,8 @@ class Post implements PostInterface
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getTypes", groups = {"create"})
-     * @Assert\Type("integer", groups = {"create"})
+     * @Assert\Choice(choices = "getTypes", groups = {"create", "update"})
+     * @Assert\Type("integer", groups = {"create", "update"})
      */
     protected $type;
 
@@ -57,8 +54,8 @@ class Post implements PostInterface
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getPrivacies", groups = {"create"})
-     * @Assert\Type("integer", groups = {"create"})
+     * @Assert\Choice(choices = "getPrivacies", groups = {"create", "update"})
+     * @Assert\Type("integer", groups = {"create", "update"})
      */
     protected $privacy;
 
@@ -67,8 +64,8 @@ class Post implements PostInterface
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getStates", groups = {"create"})
-     * @Assert\Type("integer", groups = {"create"})
+     * @Assert\Choice(choices = "getStates", groups = {"admin_review"})
+     * @Assert\Type("integer", groups = {"admin_review"})
      */
     protected $state;
 
@@ -96,7 +93,11 @@ class Post implements PostInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\PostReaction", mappedBy="post", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\User")
+     * @ORM\JoinTable(name="post_reactions",
+     *     joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
      */
     protected $reactions;
 
@@ -313,9 +314,19 @@ class Post implements PostInterface
     /**
      * {@inheritDoc}
      */
-    public function addReaction(PostReactionInterface $reaction)
+    public function addReaction(UserInterface $user)
     {
-        $this->reactions->add($reaction);
+        $this->reactions->add($user);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeReaction(UserInterface $user)
+    {
+        $this->reactions->removeElement($user);
 
         return $this;
     }
@@ -325,14 +336,7 @@ class Post implements PostInterface
      */
     public function hasReaction(UserInterface $user)
     {
-        /** @var \CoreBundle\Entity\PostReactionInterface $r */
-        foreach ($this->getReactions() as $r) {
-            if ($user->isEqual($r->getRespondent())) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->reactions->contains($user);
     }
 
     /**

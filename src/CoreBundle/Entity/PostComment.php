@@ -3,7 +3,6 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,8 +17,6 @@ class PostComment implements PostCommentInterface
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @JMS\Type("integer")
      */
     protected $id;
 
@@ -44,8 +41,8 @@ class PostComment implements PostCommentInterface
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(groups = {"create"})
-     * @Assert\Type("text", groups = {"create"})
+     * @Assert\NotBlank(groups = {"create", "update"})
+     * @Assert\Type("text", groups = {"create", "update"})
      */
     protected $content;
 
@@ -54,8 +51,8 @@ class PostComment implements PostCommentInterface
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getStates", groups = {"create"})
-     * @Assert\Type("integer", groups = {"create"})
+     * @Assert\Choice(choices = "getStates", groups = {"admin_review"})
+     * @Assert\Type("integer", groups = {"admin_review"})
      */
     protected $state;
 
@@ -78,6 +75,8 @@ class PostComment implements PostCommentInterface
      */
     public function __construct()
     {
+        $this->state = self::STATE_ACTIVE;
+
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }

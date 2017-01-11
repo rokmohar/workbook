@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="users", uniqueConstraints={
  *     @ORM\UniqueConstraint(columns={"email"})
  * })
- * @UniqueEntity("email", groups = {"register"})
+ * @UniqueEntity("email", groups = {"create", "update", "admin_create", "admin_update"})
  */
 class User implements UserInterface, \Serializable
 {
@@ -33,9 +33,9 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string", unique=true)
      *
-     * @Assert\Email(groups = {"register"})
-     * @Assert\NotBlank(groups = {"register"})
-     * @Assert\Type("string", groups = {"register"})
+     * @Assert\Email(groups = {"create", "update", "admin_create", "admin_update"})
+     * @Assert\NotBlank(groups = {"create", "update", "admin_create", "admin_update"})
+     * @Assert\Type("string", groups = {"create", "update", "admin_create", "admin_update"})
      */
     protected $email;
 
@@ -49,9 +49,9 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @Assert\Length(min = 6, max = 255, groups = {"register"})
-     * @Assert\NotBlank(groups = {"register"})
-     * @Assert\Type("string", groups = {"register"})
+     * @Assert\Length(min = 6, max = 255, groups = {"create", "update", "admin_create"})
+     * @Assert\NotBlank(groups = {"create", "update", "admin_create"})
+     * @Assert\Type("string", groups = {"create", "update", "admin_create"})
      */
     protected $plainPassword;
 
@@ -60,9 +60,9 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\Length(min = 6, max = 255, groups = {"register"})
-     * @Assert\NotBlank(groups = {"register"})
-     * @Assert\Type("string", groups = {"register"})
+     * @Assert\Length(min = 6, max = 255, groups = {"create", "update", "admin_create", "admin_update"})
+     * @Assert\NotBlank(groups = {"create", "update", "admin_update"})
+     * @Assert\Type("string", groups = {"create", "update", "admin_update"})
      */
     protected $name;
 
@@ -71,8 +71,8 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="text", nullable=true)
      *
-     * @Assert\Length(min = 20, max = 1000, groups = {})
-     * @Assert\Type("text", groups = {})
+     * @Assert\Length(min = 20, max = 1000, groups = {"update"})
+     * @Assert\Type("text", groups = {"update"})
      */
     protected $about;
 
@@ -81,8 +81,8 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string", nullable=true)
      *
-     * @Assert\Length(min = 6, max = 255, groups = {})
-     * @Assert\Type("string", groups = {})
+     * @Assert\Length(min = 6, max = 255, groups = {"update"})
+     * @Assert\Type("string", groups = {"update"})
      */
     protected $avatar;
 
@@ -91,8 +91,8 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getTypes", groups = {})
-     * @Assert\Type("integer", groups = {})
+     * @Assert\Choice(choices = "getTypes", groups = {"admin_create", "admin_update"})
+     * @Assert\Type("integer", groups = {"admin_create", "admin_update"})
      */
     protected $state;
 

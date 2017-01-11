@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="admins", uniqueConstraints={
  *     @ORM\UniqueConstraint(columns={"email"})
  * })
- * @UniqueEntity({"email"})
+ * @UniqueEntity("email", groups = {"update", "admin_create", "admin_update"})
  */
 class Admin implements AdminInterface
 {
