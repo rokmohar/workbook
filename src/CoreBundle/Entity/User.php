@@ -72,7 +72,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="text", nullable=true)
      *
      * @Assert\Length(min = 20, max = 1000, groups = {"update"})
-     * @Assert\Type("text", groups = {"update"})
+     * @Assert\Type("string", groups = {"update"})
      */
     protected $about;
 

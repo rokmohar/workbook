@@ -5,4 +5,5 @@ services:
         tags:
             - { name: twig.extension }
         arguments:
+            - "@form.factory"
             - "@security.token_storage"

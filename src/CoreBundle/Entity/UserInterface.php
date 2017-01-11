@@ -21,6 +21,11 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function setId($id);
 
     /**
+     * @return string
+     */
+    public function getEmail();
+
+    /**
      * @param string $email
      */
     public function setEmail($email);

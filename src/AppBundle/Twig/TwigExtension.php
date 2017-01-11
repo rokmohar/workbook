@@ -2,12 +2,20 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Form\PostCommentType;
+use CoreBundle\Entity\PostComment;
 use CoreBundle\Entity\PostCommentInterface;
 use CoreBundle\Entity\UserInterface;
+use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class TwigExtension extends \Twig_Extension
 {
+    /**
+     * @var \Symfony\Component\Form\FormFactory
+     */
+    protected $formFactory;
+
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
      */
@@ -16,10 +24,12 @@ class TwigExtension extends \Twig_Extension
     /**
      * Constructor.
      *
+     * @param \Symfony\Component\Form\FormFactory $formFactory
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      */
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(FormFactory $formFactory, TokenStorageInterface $tokenStorage)
     {
+        $this->formFactory = $formFactory;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -39,9 +49,20 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
+            new \Twig_SimpleFunction('comment_form', array($this, 'commentForm')),
             new \Twig_SimpleFunction('is_owner', array($this, 'isOwner')),
             new \Twig_SimpleFunction('is_respondent', array($this, 'isRespondent')),
         );
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormView
+     */
+    public function commentForm()
+    {
+        $commentForm = $this->formFactory->create(PostCommentType::class, new PostComment());
+
+        return $commentForm->createView();
     }
 
     /**

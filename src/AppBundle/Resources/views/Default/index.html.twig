@@ -50,14 +50,15 @@
                 </div>
                 <div class="panel-footer panel-action">
                     <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
+                    <div class="clearfix"></div>
                 </div>
-                {{ form_end(postForm, { 'render_rest': false }) }}
             </div>
+            {{ form_end(postForm, { 'render_rest': false }) }}
 
             {% for post in timeline %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="{{ path('profile', { id: post.user.id }) }}" class="panel-heading-img pull-left">
+                        <a href="{{ path('profile', { id: post.user.id }) }}" class="panel-profile-img pull-left">
 
                             {% if post.user.avatar %}
                                 <img src="{{ post.user.avatar }}" alt="" width="60" height="60" />
@@ -65,7 +66,7 @@
                                 <img src="/frontend/images/avatars/no_avatar.jpg" alt="" width="60" height="60" />
                             {% endif %}
                         </a>
-                        <div class="panel-action panel-heading-action">
+                        <div class="panel-action panel-profile-action">
                             <div class="action-block">
                                 <a href="{{ path('profile', { id: post.user.id }) }}">{{ post.user.name }}</a>
                             </div>
@@ -73,6 +74,7 @@
                                 {{ post.createdAt|time_ago }}
                             </div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
                     {% if post.type == 10 %}
                         <div class="panel-body panel-video">
@@ -102,14 +104,50 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% if post.comments|length %}
+                    {% for comment in post.comments %}
                         <div class="panel-footer">
-                            Comments are here
+                            <div class="comment-heading">
+                                <a href="{{ path('profile', { id: comment.respondent.id }) }}" class="panel-profile-img pull-left">
+
+                                    {% if comment.respondent.avatar %}
+                                        <img src="{{ comment.respondent.avatar }}" alt="" width="60" height="60" />
+                                    {% else %}
+                                        <img src="/frontend/images/avatars/no_avatar.jpg" alt="" width="60" height="60" />
+                                    {% endif %}
+                                </a>
+                                <div class="panel-action panel-profile-action">
+                                    <div class="action-block">
+                                        <a href="{{ path('profile', { id: comment.respondent.id }) }}">{{ comment.respondent.name }}</a>
+                                    </div>
+                                    <div class="action-block action-time">
+                                        {{ comment.createdAt|time_ago }}
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="comment-content">
+                                {{ comment.content|nl2br }}
+                            </div>
                         </div>
-                    {% endif %}
+                    {% endfor %}
+                    {% set commentForm = comment_form() %}
+                    {{ form_start(commentForm, { 'name': random(), 'action': path('post', { id: post.id }), 'method': 'POST' }) }}
+                    {{ form_widget(commentForm._token) }}
                     <div class="panel-footer">
-                        [comment_form]
+                        <div class="{{ 'form-group' ~ (commentForm.content.vars.errors|length ? ' has-error') }}">
+                            {{ form_widget(commentForm.content, { 'attr': {
+                                'class': 'form-control',
+                                'placeholder': commentForm.content.vars.label,
+                                'rows': 3,
+                                'style': 'resize: vertical;',
+                            } }) }}
+                        </div>
+                        <div class="form-group">
+                            <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
+                    {{ form_end(commentForm, { 'render_rest': false }) }}
                 </div>
             {% else %}
                 <div class="panel panel-default">

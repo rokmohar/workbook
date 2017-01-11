@@ -53,8 +53,6 @@ class AccountController extends Controller
         if ($userForm->isSubmitted() &&$userForm->isValid()) {
             /** @var \CoreBundle\Entity\UserInterface $user */
             $user = $userForm->getData();
-
-            // Set default data
             $user->setState(UserInterface::STATE_ACTIVE);
 
             /** @var \CoreBundle\Doctrine\UserManagerInterface $manager */

@@ -1,0 +1,117 @@
+{% extends 'frontend/layout.html.twig' %}
+
+{% form_theme commentForm _self %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if compound %}
+            {% for error in errors %}
+                <div class="alert alert-danger" role="alert">{{ error.message }}</div>
+            {% endfor %}
+        {% else %}
+            {% for error in errors %}
+                <span class="help-block">{{ error.message }}</span>
+            {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block content %}
+    <div class="container" role="main">
+        <div class="row">
+            {{ form_start(commentForm, { 'action': path('post', { id: post.id }), 'method': 'POST' }) }}
+            {{ form_errors(commentForm) }}
+            {{ form_widget(commentForm._token) }}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="{{ path('profile', { id: post.user.id }) }}" class="panel-profile-img pull-left">
+
+                        {% if post.user.avatar %}
+                            <img src="{{ post.user.avatar }}" alt="" width="60" height="60" />
+                        {% else %}
+                            <img src="/frontend/images/avatars/no_avatar.jpg" alt="" width="60" height="60" />
+                        {% endif %}
+                    </a>
+                    <div class="panel-action panel-profile-action">
+                        <div class="action-block">
+                            <a href="{{ path('profile', { id: post.user.id }) }}">{{ post.user.name }}</a>
+                        </div>
+                        <div class="action-block action-time">
+                            {{ post.createdAt|time_ago }}
+                        </div>
+                    </div>
+                </div>
+                {% if post.type == 10 %}
+                    <div class="panel-body panel-video">
+                        <iframe src="{{ post.content }}" allowfullscreen></iframe>
+                    </div>
+                {% elseif post.type == 5 %}
+                    <div class="panel-body panel-img">
+                        <img src="{{ post.content }}" alt="" class="img-responsive" />
+                    </div>
+                {% else %}
+                    <div class="panel-body">
+                        {{ post.content|nl2br }}
+                    </div>
+                {% endif %}
+                <div class="panel-footer" style="color: #999;">
+                    <div>
+                        <span data-post="{{ post.id }}" class="comment-count">{{ post.comments|length }}</span> Comments
+                        -
+                        <span data-post="{{ post.id }}" class="like-count">{{ post.reactions|length }}</span> Likes</div>
+                    <div>
+                        {% if post.hasReaction(app.user) %}
+                            <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">Unlike</a>
+                            <a href="#" data-trigger="post-like" data-href="{{ path('api_delete_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}" style="display: none;">Like</a>
+                        {% else %}
+                            <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}" style="display: none;">Unlike</a>
+                            <a href="#" data-trigger="post-like" data-href="{{ path('api_delete_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">Like</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% for comment in post.comments %}
+                    <div class="panel-footer">
+                        <div class="comment-heading">
+                            <a href="{{ path('profile', { id: comment.respondent.id }) }}" class="panel-profile-img pull-left">
+
+                                {% if comment.respondent.avatar %}
+                                    <img src="{{ comment.respondent.avatar }}" alt="" width="60" height="60" />
+                                {% else %}
+                                    <img src="/frontend/images/avatars/no_avatar.jpg" alt="" width="60" height="60" />
+                                {% endif %}
+                            </a>
+                            <div class="panel-action panel-profile-action">
+                                <div class="action-block">
+                                    <a href="{{ path('profile', { id: comment.respondent.id }) }}">{{ comment.respondent.name }}</a>
+                                </div>
+                                <div class="action-block action-time">
+                                    {{ comment.createdAt|time_ago }}
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="comment-content">
+                            {{ comment.content|nl2br }}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="panel-footer">
+                    <div class="{{ 'form-group' ~ (commentForm.content.vars.errors|length ? ' has-error') }}">
+                        {{ form_widget(commentForm.content, { 'attr': {
+                            'class': 'form-control',
+                            'placeholder': commentForm.content.vars.label,
+                            'rows': 3,
+                            'style': 'resize: vertical;',
+                        } }) }}
+                        {{ form_errors(commentForm.content) }}
+                    </div>
+                    <div class="form-group">
+                        <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(commentForm, { 'render_rest': false }) }}
+        </div>
+    </div>
+{% endblock %}

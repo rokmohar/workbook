@@ -73,6 +73,7 @@
             <div class="panel-footer panel-action">
                 <a href="{{ path('login') }}" class="btn btn-default" type="submit">I have account</a>
                 {{ form_widget(userForm.submit, { 'attr': { 'class': 'btn btn-primary pull-right' } }) }}
+                <div class="clearfix"></div>
             </div>
         </div>
         {{ form_end(userForm, { 'render_rest': false }) }}

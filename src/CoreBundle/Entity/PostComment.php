@@ -42,7 +42,7 @@ class PostComment implements PostCommentInterface
      * @ORM\Column(type="string")
      *
      * @Assert\NotBlank(groups = {"create", "update"})
-     * @Assert\Type("text", groups = {"create", "update"})
+     * @Assert\Type("string", groups = {"create", "update"})
      */
     protected $content;
 

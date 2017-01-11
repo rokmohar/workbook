@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\PostCommentType;
 use AppBundle\Form\PostType;
 use CoreBundle\Entity\Post;
+use CoreBundle\Entity\PostComment;
 use CoreBundle\Entity\PostInterface;
 use CoreBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,7 +26,9 @@ class ProfileController extends Controller
         /** @var \CoreBundle\Doctrine\PostManagerInterface $manager */
         $manager = $this->get('workbook.post_manager');
 
-        $postForm = $this->createForm(PostType::class, new Post());
+        $postForm = $this->createForm(PostType::class, new Post(), array(
+            'validation_groups' => ['create'],
+        ));
         $postForm->handleRequest($request);
 
         /** @var \CoreBundle\Entity\UserInterface $self */
@@ -39,14 +43,12 @@ class ProfileController extends Controller
 
                 /** @var \CoreBundle\Entity\PostInterface $post */
                 $post = $postForm->getData();
-
-                // Set default values
                 $post->setUser($self);
                 $post->setState(PostInterface::STATE_ACTIVE);
 
                 $manager->updatePost($post);
 
-                $this->redirectToRoute('profile', ['id' => $user->getId()]);
+                return $this->redirectToRoute('profile', ['id' => $user->getId()]);
             }
         }
 

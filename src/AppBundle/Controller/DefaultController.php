@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\PostCommentType;
 use AppBundle\Form\PostType;
 use CoreBundle\Entity\Post;
+use CoreBundle\Entity\PostComment;
 use CoreBundle\Entity\PostInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,7 +24,9 @@ class DefaultController extends Controller
         /** @var \CoreBundle\Doctrine\PostManagerInterface $manager */
         $manager = $this->get('workbook.post_manager');
 
-        $postForm = $this->createForm(PostType::class, new Post());
+        $postForm = $this->createForm(PostType::class, new Post(), array(
+            'validation_groups' => ['create'],
+        ));
         $postForm->handleRequest($request);
 
         /** @var \CoreBundle\Entity\UserInterface $self */
@@ -31,14 +35,12 @@ class DefaultController extends Controller
         if ($postForm->isSubmitted() && $postForm->isValid()) {
             /** @var \CoreBundle\Entity\PostInterface $post */
             $post = $postForm->getData();
-
-            // Set default values
             $post->setUser($self);
             $post->setState(PostInterface::STATE_ACTIVE);
 
             $manager->updatePost($post);
 
-            $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('homepage');
         }
 
         /** @var \CoreBundle\Repository\PostRepository $repository */

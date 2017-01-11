@@ -35,7 +35,7 @@ class Post implements PostInterface
      * @ORM\Column(type="text")
      *
      * @Assert\NotBlank(groups = {"create", "update"})
-     * @Assert\Type("text", groups = {"create", "update"})
+     * @Assert\Type("string", groups = {"create", "update"})
      */
     protected $content;
 
@@ -298,6 +298,8 @@ class Post implements PostInterface
      */
     public function addComment(PostCommentInterface $comment)
     {
+        $comment->setPost($this);
+
         $this->comments->add($comment);
 
         return $this;
