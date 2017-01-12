@@ -2,34 +2,24 @@
 
 namespace Tests\AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DomCrawler\Crawler;
 
-class DefaultControllerTest extends WebTestCase
+class AccountControllerTest extends WebTestCase
 {
-    public function testIndex()
+    public function testLogin()
     {
         $client = static::createClient();
 
-        // Login
-        $crawler = $this->login($client);
-
-        // Test homepage
-        $this->assertEquals('/', $client->getRequest()->getPathInfo());
+        // Test login page
+        $crawler = $client->request('GET', '/login');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $this->assertEquals(1, $crawler->filter('textarea[id=post_content]')->count());
-    }
-
-    /**
-     * @param Client $client
-     * @return Crawler
-     */
-    private function login(Client $client)
-    {
-        // GET homepage
-        $client->request('GET', '/');
+        // Submit form
+        $form = $crawler->filter('button[type=submit]')->form(array(
+            'email'    => 'user1@example.org',
+            'password' => '123',
+        ), 'POST');
+        $crawler = $client->submit($form);
 
         // Test redirect
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -38,6 +28,9 @@ class DefaultControllerTest extends WebTestCase
         // Test login page
         $this->assertEquals('/login',$client->getRequest()->getPathInfo());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        // Test form error
+        $this->assertContains('Invalid credentials.', $crawler->filter('[role=alert]')->text());
 
         // Submit form
         $form = $crawler->filter('button[type=submit]')->form(array(
@@ -48,6 +41,10 @@ class DefaultControllerTest extends WebTestCase
 
         // Test redirect
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        return $client->followRedirect();
+        $crawler = $client->followRedirect();
+
+        // Test homepage
+        $this->assertEquals('/',$client->getRequest()->getPathInfo());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

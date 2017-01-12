@@ -74,3 +74,6 @@ security:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/, role: ROLE_USER }
+
+    acl:
+        connection: default

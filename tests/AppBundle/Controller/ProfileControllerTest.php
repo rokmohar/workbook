@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 
-class DefaultControllerTest extends WebTestCase
+class ProfileControllerTest extends WebTestCase
 {
     public function testIndex()
     {
@@ -17,6 +17,14 @@ class DefaultControllerTest extends WebTestCase
 
         // Test homepage
         $this->assertEquals('/', $client->getRequest()->getPathInfo());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        // Click profile link
+        $link = $crawler->filter('.nav > li > a')->eq(1)->link();
+        $crawler = $client->click($link);
+
+        // Test profile page
+        $this->assertEquals('/profile/1', $client->getRequest()->getPathInfo());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $this->assertEquals(1, $crawler->filter('textarea[id=post_content]')->count());
