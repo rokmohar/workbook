@@ -2,7 +2,6 @@
 
 namespace ApiBundle\Controller;
 
-use CoreBundle\Entity\PostComment;
 use CoreBundle\Entity\PostInterface;
 use CoreBundle\Entity\PostReaction;
 use FOS\RestBundle\Controller\Annotations as FOS;

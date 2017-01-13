@@ -4,6 +4,7 @@ namespace CoreBundle\Service;
 
 use CoreBundle\Doctrine\UserManagerInterface;
 use CoreBundle\Entity\UserInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
@@ -22,13 +23,20 @@ class UserService implements UserServiceInterface
     protected $aclProvider;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param \CoreBundle\Doctrine\UserManagerInterface $userManager
      * @param \Symfony\Component\Security\Acl\Dbal\MutableAclProvider $aclProvider
+     * @param \Psr\Log\LoggerInterface $logger
      */
-    public function __construct(UserManagerInterface $userManager, MutableAclProvider $aclProvider)
+    public function __construct(UserManagerInterface $userManager, MutableAclProvider $aclProvider, LoggerInterface $logger)
     {
         $this->userManager = $userManager;
         $this->aclProvider = $aclProvider;
+        $this->logger = $logger;
     }
 
     /**
@@ -38,11 +46,16 @@ class UserService implements UserServiceInterface
     {
         $user->setState(UserInterface::STATE_ACTIVE);
 
+        $this->logger->notice('Creating a user.', array(
+            'email' => $user->getEmail(),
+            'name' => $user->getName(),
+        ));
+
         // Persist object
-        $this->userManager->updateUser($user);
+        //$this->userManager->updateUser($user);
 
         // Create ACL
-        $this->createAcl($user);
+        //$this->createAcl($user);
     }
 
     /**
@@ -60,6 +73,11 @@ class UserService implements UserServiceInterface
      */
     public function deleteUser(UserInterface $user)
     {
+        $this->logger->notice('Deleting the user.', array(
+            'email' => $user->getEmail(),
+            'name' => $user->getName(),
+        ));
+
         // Delete ACL
         $this->deleteAcl($user);
 

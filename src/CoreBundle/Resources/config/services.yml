@@ -21,3 +21,4 @@ services:
         arguments:
             - "@workbook.user_manager"
             - "@security.acl.provider"
+            - "@logger"
