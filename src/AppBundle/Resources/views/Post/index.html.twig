@@ -19,13 +19,15 @@
 {% block content %}
     <div class="container" role="main">
         <div class="row">
-            {{ form_start(commentForm, { 'action': path('post', { id: post.id }), 'method': 'POST' }) }}
-            {{ form_errors(commentForm) }}
-            {{ form_widget(commentForm._token) }}
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    <div class="btn-group pull-right" role="group">
+                        <a href="{{ path('post', { id: post.id }) }}" class="btn btn-default">View</a>
+                        {% if post.author(app.user) %}
+                            <a href="{{ path('post_edit', { id: post.id }) }}" class="btn btn-default">Edit</a>
+                        {% endif %}
+                    </div>
                     <a href="{{ path('profile', { id: post.user.id }) }}" class="panel-profile-img pull-left">
-
                         {% if post.user.avatar %}
                             <img src="{{ post.user.avatar }}" alt="" width="60" height="60" />
                         {% else %}
@@ -58,7 +60,8 @@
                     <div>
                         <span data-post="{{ post.id }}" class="comment-count">{{ post.comments|length }}</span> Comments
                         -
-                        <span data-post="{{ post.id }}" class="like-count">{{ post.reactions|length }}</span> Likes</div>
+                        <span data-post="{{ post.id }}" class="like-count">{{ post.reactions|length }}</span> Likes
+                    </div>
                     <div>
                         {% if post.hasReaction(app.user) %}
                             <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">Unlike</a>
@@ -95,6 +98,9 @@
                         </div>
                     </div>
                 {% endfor %}
+                {% set commentForm = comment_form() %}
+                {{ form_start(commentForm, { 'name': random(), 'action': path('post', { id: post.id }), 'method': 'POST' }) }}
+                {{ form_widget(commentForm._token) }}
                 <div class="panel-footer">
                     <div class="{{ 'form-group' ~ (commentForm.content.vars.errors|length ? ' has-error') }}">
                         {{ form_widget(commentForm.content, { 'attr': {
@@ -103,15 +109,14 @@
                             'rows': 3,
                             'style': 'resize: vertical;',
                         } }) }}
-                        {{ form_errors(commentForm.content) }}
                     </div>
                     <div class="form-group">
                         <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                {{ form_end(commentForm, { 'render_rest': false }) }}
             </div>
-            {{ form_end(commentForm, { 'render_rest': false }) }}
         </div>
     </div>
 {% endblock %}

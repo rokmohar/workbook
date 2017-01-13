@@ -2,6 +2,12 @@ $(document).ready(function(){
   // Auteosize Plugin
   autosize($('textarea'));
 
+  $('[data-trigger="confirm"]').click(function() {
+    if (!confirm("Are you sure you want to proceed?")) {
+      return false;
+    }
+  });
+
   $('[data-trigger="post-like"]').click(function(event) {
     var $this = this;
     const href = $($this).data('href');

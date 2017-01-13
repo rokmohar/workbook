@@ -5,6 +5,9 @@ parameters:
     workbook.post_class: CoreBundle\Entity\Post
     workbook.post_manager_class: CoreBundle\Doctrine\PostManager
 
+    workbook.post_comment_class: CoreBundle\Entity\PostComment
+    workbook.post_comment_manager_class: CoreBundle\Doctrine\PostCommentManager
+
     workbook.user_class: CoreBundle\Entity\User
     workbook.user_manager_class: CoreBundle\Doctrine\UserManager
 
@@ -22,6 +25,13 @@ services:
             - "@workbook.util.password_encoder"
             - "@doctrine.orm.entity_manager"
             - "%workbook.post_class%"
+
+    workbook.post_comment_manager:
+        class: "%workbook.post_comment_manager_class%"
+        arguments:
+            - "@workbook.util.password_encoder"
+            - "@doctrine.orm.entity_manager"
+            - "%workbook.post_comment_class%"
 
     workbook.user_manager:
         class: "%workbook.user_manager_class%"

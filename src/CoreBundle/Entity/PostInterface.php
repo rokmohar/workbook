@@ -4,9 +4,9 @@ namespace CoreBundle\Entity;
 
 interface PostInterface
 {
-    const TYPE_POST  = 0;
-    const TYPE_IMAGE = 5;
-    const TYPE_VIDEO = 10;
+    const TYPE_POST    = 0;
+    const TYPE_IMAGE   = 5;
+    const TYPE_YOUTUBE = 10;
 
     const PRIVACY_PUBLIC  = 0;
     const PRIVACY_FRIENDS = 5;
@@ -143,6 +143,11 @@ interface PostInterface
     public function hasReaction(UserInterface $user);
 
     /**
+     * @return boolean
+     */
+    public function isAuthor(UserInterface $user);
+
+    /**
      * @return array
      */
     public static function getTypes();
@@ -150,10 +155,10 @@ interface PostInterface
     /**
      * @return array
      */
-    public static function getStates();
+    public static function getPrivacies();
 
     /**
      * @return array
      */
-    public static function getPrivacies();
+    public static function getStates();
 }

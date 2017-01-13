@@ -21,14 +21,17 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', TextType::class, array(
+                'disabled' => $options['email_disabled'],
                 'label' => 'Email address',
                 'required' => true,
                 'trim' => true,
             ))
-            ->add('plainPassword', RepeatedType::class, array(
+            ->add('password', RepeatedType::class, array(
+                'disabled' => $options['password_disabled'],
                 'first_options' => array(
                     'label' => 'Password',
                 ),
+                'property_path' => 'plainPassword',
                 'required' => true,
                 'second_options' => array(
                     'label' => 'Confirm password',
@@ -36,12 +39,14 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
             ))
             ->add('name', TextType::class, array(
+                'disabled' => $options['name_disabled'],
                 'label' => 'Name',
                 'required' => true,
                 'trim' => true,
             ))
             ->add('state', ChoiceType::class, array(
-                'choices'  => array_flip(User::getStates()),
+                'choices'  => User::getStates(),
+                'disabled' => $options['state_disabled'],
                 'label' => 'State',
                 'required' => true,
             ))
@@ -58,6 +63,10 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => User::class,
+            'email_disabled' => false,
+            'name_disabled' => false,
+            'password_disabled' => false,
+            'state_disabled' => false,
         ));
     }
 }

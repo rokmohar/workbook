@@ -53,21 +53,21 @@
                     } }) }}
                     {{ form_errors(userForm.email) }}
                 </div>
-                <div class="{{ 'form-group' ~ (userForm.plainPassword.first.vars.errors|length ? ' has-error') }}">
-                    {{ form_label(userForm.plainPassword.first, null, { 'label_attr': { 'class': 'sr-only' } }) }}
-                    {{ form_widget(userForm.plainPassword.first, { 'attr': {
+                <div class="{{ 'form-group' ~ (userForm.password.first.vars.errors|length ? ' has-error') }}">
+                    {{ form_label(userForm.password.first, null, { 'label_attr': { 'class': 'sr-only' } }) }}
+                    {{ form_widget(userForm.password.first, { 'attr': {
                         'class': 'form-control',
-                        'placeholder': userForm.plainPassword.first.vars.label,
+                        'placeholder': userForm.password.first.vars.label,
                     } }) }}
-                    {{ form_errors(userForm.plainPassword.first) }}
+                    {{ form_errors(userForm.password.first) }}
                 </div>
-                <div class="{{ 'form-group' ~ (userForm.plainPassword.second.vars.errors|length ? ' has-error') }}">
-                    {{ form_label(userForm.plainPassword.second, null, { 'label_attr': { 'class': 'sr-only' } }) }}
-                    {{ form_widget(userForm.plainPassword.second, { 'attr': {
+                <div class="{{ 'form-group' ~ (userForm.password.second.vars.errors|length ? ' has-error') }}">
+                    {{ form_label(userForm.password.second, null, { 'label_attr': { 'class': 'sr-only' } }) }}
+                    {{ form_widget(userForm.password.second, { 'attr': {
                         'class': 'form-control',
-                        'placeholder': userForm.plainPassword.second.vars.label,
+                        'placeholder': userForm.password.second.vars.label,
                     } }) }}
-                    {{ form_errors(userForm.plainPassword.second) }}
+                    {{ form_errors(userForm.password.second) }}
                 </div>
             </div>
             <div class="panel-footer panel-action">

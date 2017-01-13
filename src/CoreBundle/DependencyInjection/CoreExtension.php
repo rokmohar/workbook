@@ -16,6 +16,7 @@ class CoreExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('doctrine.yml');
+        $loader->load('services.yml');
         $loader->load('utils.yml');
     }
 }

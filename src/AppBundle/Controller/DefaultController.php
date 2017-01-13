@@ -2,11 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\PostCommentType;
 use AppBundle\Form\PostType;
 use CoreBundle\Entity\Post;
-use CoreBundle\Entity\PostComment;
-use CoreBundle\Entity\PostInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,21 +21,23 @@ class DefaultController extends Controller
         /** @var \CoreBundle\Doctrine\PostManagerInterface $manager */
         $manager = $this->get('workbook.post_manager');
 
-        $postForm = $this->createForm(PostType::class, new Post(), array(
+        // Create an empty object
+        $post = new Post();
+
+        // Create a form
+        $postForm = $this->createForm(PostType::class, $post, array(
+            'state_disabled' => true,
             'validation_groups' => ['create'],
         ));
         $postForm->handleRequest($request);
 
-        /** @var \CoreBundle\Entity\UserInterface $self */
-        $self = $this->getUser();
+        /** @var \CoreBundle\Entity\UserInterface $user */
+        $user = $this->getUser();
 
         if ($postForm->isSubmitted() && $postForm->isValid()) {
-            /** @var \CoreBundle\Entity\PostInterface $post */
-            $post = $postForm->getData();
-            $post->setUser($self);
-            $post->setState(PostInterface::STATE_ACTIVE);
-
-            $manager->updatePost($post);
+            /** @var \CoreBundle\Service\PostServiceInterface $postService */
+            $postService = $this->get('workbook.post_service');
+            $postService->createPost($post, $user);
 
             return $this->redirectToRoute('homepage');
         }
@@ -48,7 +47,7 @@ class DefaultController extends Controller
 
         return $this->render('AppBundle:Default:index.html.twig', array(
             'postForm' => $postForm->createView(),
-            'timeline' => $repository->getTimeline($self),
+            'timeline' => $repository->getTimeline($user),
         ));
     }
 }

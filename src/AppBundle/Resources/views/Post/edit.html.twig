@@ -1,0 +1,62 @@
+{% extends 'frontend/layout.html.twig' %}
+
+{% form_theme postForm _self %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if compound %}
+            {% for error in errors %}
+                <div class="alert alert-danger" role="alert">{{ error.message }}</div>
+            {% endfor %}
+        {% else %}
+            {% for error in errors %}
+                <span class="help-block">{{ error.message }}</span>
+            {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block content %}
+    <div class="container" role="main">
+        <div class="row">
+            {{ form_start(postForm, { 'action': path('post_edit', { id: post.id }), 'method': 'POST' }) }}
+            {{ form_errors(postForm) }}
+            {{ form_widget(postForm._token) }}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="{{ 'form-group' ~ (postForm.content.vars.errors|length ? ' has-error') }}">
+                        {{ form_widget(postForm.content, { 'attr': {
+                            'class': 'form-control',
+                            'placeholder': postForm.content.vars.label,
+                            'rows': 3,
+                            'style': 'resize: vertical;',
+                        } }) }}
+                        {{ form_errors(postForm.content) }}
+                    </div>
+                    <div class="{{ 'form-group' ~ (postForm.type.vars.errors|length ? ' has-error') }}">
+                        {{ form_label(postForm.type) }}
+                        {{ form_widget(postForm.type, { 'attr': {
+                            'class': 'form-control',
+                        } }) }}
+                        {{ form_errors(postForm.type) }}
+                    </div>
+                    <div class="{{ 'form-group' ~ (postForm.privacy.vars.errors|length ? ' has-error') }}">
+                        {{ form_label(postForm.privacy) }}
+                        {{ form_widget(postForm.privacy, { 'attr': {
+                            'class': 'form-control',
+                        } }) }}
+                        {{ form_errors(postForm.privacy) }}
+                    </div>
+                </div>
+                <div class="panel-footer panel-action">
+                    <div class="btn-group pull-right" role="group">
+                        <a data-trigger="confirm" href="{{ path('post_delete', { id: post.id }) }}" class="btn btn-danger">Delete</a>
+                        {{ form_widget(postForm.submit, { attr: { 'class': 'btn btn-primary' }}) }}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            {{ form_end(postForm, { 'render_rest': false }) }}
+        </div>
+    </div>
+{% endblock %}

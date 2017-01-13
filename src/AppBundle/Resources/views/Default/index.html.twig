@@ -58,8 +58,13 @@
             {% for post in timeline %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <div class="btn-group pull-right" role="group">
+                            <a href="{{ path('post', { id: post.id }) }}" class="btn btn-default">View</a>
+                            {% if post.author(app.user) %}
+                                <a href="{{ path('post_edit', { id: post.id }) }}" class="btn btn-default">Edit</a>
+                            {% endif %}
+                        </div>
                         <a href="{{ path('profile', { id: post.user.id }) }}" class="panel-profile-img pull-left">
-
                             {% if post.user.avatar %}
                                 <img src="{{ post.user.avatar }}" alt="" width="60" height="60" />
                             {% else %}
@@ -93,7 +98,8 @@
                         <div>
                             <span data-post="{{ post.id }}" class="comment-count">{{ post.comments|length }}</span> Comments
                             -
-                            <span data-post="{{ post.id }}" class="like-count">{{ post.reactions|length }}</span> Likes</div>
+                            <span data-post="{{ post.id }}" class="like-count">{{ post.reactions|length }}</span> Likes
+                        </div>
                         <div>
                             {% if post.hasReaction(app.user) %}
                                 <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">Unlike</a>

@@ -21,12 +21,14 @@ class PostCommentType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, array(
+                'disabled' => $options['content_disabled'],
                 'label' => 'What is on your mind?',
                 'required' => true,
                 'trim' => true,
             ))
             ->add('state', ChoiceType::class, array(
-                'choices'  => array_flip(PostComment::getStates()),
+                'choices'  => PostComment::getStates(),
+                'disabled' => $options['state_disabled'],
                 'empty_data'  => null,
                 'label' => 'State',
                 'required' => true,
@@ -43,7 +45,9 @@ class PostCommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'content_disabled' => false,
             'data_class' => PostComment::class,
+            'state_disabled' => false,
         ));
     }
 }

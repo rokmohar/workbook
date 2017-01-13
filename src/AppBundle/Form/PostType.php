@@ -20,24 +20,29 @@ class PostType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, array(
+                'disabled' => $options['content_disabled'],
                 'label' => 'What is on your mind?',
                 'required' => true,
                 'trim' => true,
             ))
             ->add('type', ChoiceType::class, array(
-                'choices'  => array_flip(Post::getTypes()),
+                'choices'  => Post::getTypes(),
+                'disabled' => $options['type_disabled'],
                 'empty_data'  => null,
                 'label' => 'Type',
+                'multiple' => false,
                 'required' => true,
             ))
             ->add('privacy', ChoiceType::class, array(
-                'choices'  => array_flip(Post::getPrivacies()),
+                'choices'  => Post::getPrivacies(),
+                'disabled' => $options['privacy_disabled'],
                 'empty_data'  => null,
                 'label' => 'Privacy',
                 'required' => true,
             ))
             ->add('state', ChoiceType::class, array(
-                'choices'  => array_flip(Post::getStates()),
+                'choices'  => Post::getStates(),
+                'disabled' => $options['state_disabled'],
                 'empty_data'  => null,
                 'label' => 'State',
                 'required' => true,
@@ -54,7 +59,11 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'content_disabled' => false,
             'data_class' => Post::class,
+            'privacy_disabled' => false,
+            'state_disabled' => false,
+            'type_disabled' => false,
         ));
     }
 }

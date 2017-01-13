@@ -34,8 +34,8 @@ class Post implements PostInterface
      *
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(groups = {"create", "update"})
-     * @Assert\Type("string", groups = {"create", "update"})
+     * @Assert\NotBlank(groups = {"create", "edit"})
+     * @Assert\Type("string", groups = {"create", "edit"})
      */
     protected $content;
 
@@ -44,8 +44,8 @@ class Post implements PostInterface
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getTypes", groups = {"create", "update"})
-     * @Assert\Type("integer", groups = {"create", "update"})
+     * @Assert\Choice(callback = "getTypes", groups = {"create", "edit"})
+     * @Assert\Type("integer", groups = {"create", "edit"})
      */
     protected $type;
 
@@ -54,8 +54,8 @@ class Post implements PostInterface
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getPrivacies", groups = {"create", "update"})
-     * @Assert\Type("integer", groups = {"create", "update"})
+     * @Assert\Choice(callback = "getPrivacies", groups = {"create", "edit"})
+     * @Assert\Type("integer", groups = {"create", "edit"})
      */
     protected $privacy;
 
@@ -64,7 +64,7 @@ class Post implements PostInterface
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getStates", groups = {"admin_review"})
+     * @Assert\Choice(callback = "getStates", groups = {"admin_review"})
      * @Assert\Type("integer", groups = {"admin_review"})
      */
     protected $state;
@@ -194,7 +194,8 @@ class Post implements PostInterface
      */
     public function getTypeLabel()
     {
-        return self::getTypes()[$this->getType()];
+        $types = array_flip(self::getTypes());
+        return $types[$this->getType()];
     }
 
     /**
@@ -220,7 +221,8 @@ class Post implements PostInterface
      */
     public function getPrivacyLabel()
     {
-        return self::getPrivacies()[$this->getPrivacy()];
+        $privacies = array_flip(self::getPrivacies());
+        return $privacies[$this->getPrivacy()];
     }
 
     /**
@@ -246,7 +248,8 @@ class Post implements PostInterface
      */
     public function getStateLabel()
     {
-        return self::getStates()[$this->getState()];
+        $states = array_flip(self::getStates());
+        return $states[$this->getState()];
     }
 
     /**
@@ -344,12 +347,32 @@ class Post implements PostInterface
     /**
      * {@inheritDoc}
      */
+    public function isAuthor(UserInterface $user)
+    {
+        return (strcmp($this->getUser()->getId(), $user->getId()) === 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public static function getTypes()
     {
         return array(
-            self::TYPE_POST  => 'Post',
-            self::TYPE_IMAGE => 'External Image',
-            self::TYPE_VIDEO => 'Youtube Video',
+            'Post'           => self::TYPE_POST,
+            'External Image' => self::TYPE_IMAGE,
+            'Youtube Video'  => self::TYPE_YOUTUBE,
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function getPrivacies()
+    {
+        return array(
+            'Public'  => self::PRIVACY_PUBLIC,
+            'Friends' => self::PRIVACY_FRIENDS,
+            'Private' => self::PRIVACY_PRIVATE,
         );
     }
 
@@ -359,8 +382,8 @@ class Post implements PostInterface
     public static function getStates()
     {
         return array(
-            self::STATE_ACTIVE   => 'Active',
-            self::STATE_DISABLED => 'Disabled',
+            'Active'   => self::STATE_ACTIVE,
+            'Disabled' => self::STATE_DISABLED,
         );
     }
 
@@ -369,9 +392,7 @@ class Post implements PostInterface
      */
     public function isAllowed(UserInterface $user)
     {
-        $owner = $this->getUser();
-
-        if ($user->isEqual($owner)) {
+        if ($user->isEqual($this->getUser())) {
             return true;
         }
 
@@ -380,18 +401,6 @@ class Post implements PostInterface
             self::PRIVACY_FRIENDS,
         );
 
-        return ($owner->isFriend($user) && in_array($this->getPrivacy(), $privacies));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function getPrivacies()
-    {
-        return array(
-            self::PRIVACY_PUBLIC  => 'Public',
-            self::PRIVACY_FRIENDS => 'Friends',
-            self::PRIVACY_PRIVATE => 'Private',
-        );
+        return ($this->getUser()->isFriend($user) && in_array($this->getPrivacy(), $privacies));
     }
 }

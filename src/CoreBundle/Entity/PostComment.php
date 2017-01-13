@@ -41,8 +41,8 @@ class PostComment implements PostCommentInterface
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(groups = {"create", "update"})
-     * @Assert\Type("string", groups = {"create", "update"})
+     * @Assert\NotBlank(groups = {"create", "edit"})
+     * @Assert\Type("string", groups = {"create", "edit"})
      */
     protected $content;
 
@@ -51,7 +51,7 @@ class PostComment implements PostCommentInterface
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getStates", groups = {"admin_review"})
+     * @Assert\Choice(callback = "getStates", groups = {"admin_review"})
      * @Assert\Type("integer", groups = {"admin_review"})
      */
     protected $state;
@@ -174,6 +174,15 @@ class PostComment implements PostCommentInterface
     /**
      * {@inheritDoc}
      */
+    public function getStateLabel()
+    {
+        $states = array_flip(self::getStates());
+        return $states[$this->getState()];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
@@ -213,8 +222,8 @@ class PostComment implements PostCommentInterface
     public static function getStates()
     {
         return array(
-            self::STATE_ACTIVE   => 'Active',
-            self::STATE_DISABLED => 'Disabled',
+            'Active'   => self::STATE_ACTIVE,
+            'Disabled' => self::STATE_DISABLED,
         );
     }
 }

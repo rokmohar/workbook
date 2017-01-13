@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="users", uniqueConstraints={
  *     @ORM\UniqueConstraint(columns={"email"})
  * })
- * @UniqueEntity("email", groups = {"create", "update", "admin_create", "admin_update"})
+ * @UniqueEntity("email", groups = {"create", "edit", "admin_create", "admin_edit"})
  */
 class User implements UserInterface, \Serializable
 {
@@ -33,9 +33,9 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string", unique=true)
      *
-     * @Assert\Email(groups = {"create", "update", "admin_create", "admin_update"})
-     * @Assert\NotBlank(groups = {"create", "update", "admin_create", "admin_update"})
-     * @Assert\Type("string", groups = {"create", "update", "admin_create", "admin_update"})
+     * @Assert\Email(groups = {"create", "edit", "admin_create", "admin_edit"})
+     * @Assert\NotBlank(groups = {"create", "edit", "admin_create", "admin_edit"})
+     * @Assert\Type("string", groups = {"create", "edit", "admin_create", "admin_edit"})
      */
     protected $email;
 
@@ -49,9 +49,9 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @Assert\Length(min = 6, max = 255, groups = {"create", "update", "admin_create"})
-     * @Assert\NotBlank(groups = {"create", "update", "admin_create"})
-     * @Assert\Type("string", groups = {"create", "update", "admin_create"})
+     * @Assert\Length(min = 6, max = 255, groups = {"create", "edit", "admin_create"})
+     * @Assert\NotBlank(groups = {"create", "edit", "admin_create"})
+     * @Assert\Type("string", groups = {"create", "edit", "admin_create"})
      */
     protected $plainPassword;
 
@@ -60,9 +60,9 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\Length(min = 6, max = 255, groups = {"create", "update", "admin_create", "admin_update"})
-     * @Assert\NotBlank(groups = {"create", "update", "admin_update"})
-     * @Assert\Type("string", groups = {"create", "update", "admin_update"})
+     * @Assert\Length(min = 6, max = 255, groups = {"create", "edit", "admin_create", "admin_edit"})
+     * @Assert\NotBlank(groups = {"create", "edit", "admin_edit"})
+     * @Assert\Type("string", groups = {"create", "edit", "admin_edit"})
      */
     protected $name;
 
@@ -71,8 +71,8 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="text", nullable=true)
      *
-     * @Assert\Length(min = 20, max = 1000, groups = {"update"})
-     * @Assert\Type("string", groups = {"update"})
+     * @Assert\Length(min = 20, max = 1000, groups = {"edit"})
+     * @Assert\Type("string", groups = {"edit"})
      */
     protected $about;
 
@@ -81,8 +81,8 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string", nullable=true)
      *
-     * @Assert\Length(min = 6, max = 255, groups = {"update"})
-     * @Assert\Type("string", groups = {"update"})
+     * @Assert\Length(min = 6, max = 255, groups = {"edit"})
+     * @Assert\Type("string", groups = {"edit"})
      */
     protected $avatar;
 
@@ -91,8 +91,8 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="integer", options={"unsigned"=true})
      *
-     * @Assert\Choice(choices = "getTypes", groups = {"admin_create", "admin_update"})
-     * @Assert\Type("integer", groups = {"admin_create", "admin_update"})
+     * @Assert\Choice(choices = "getTypes", groups = {"admin_create", "admin_edit"})
+     * @Assert\Type("integer", groups = {"admin_create", "admin_edit"})
      */
     protected $state;
 
@@ -301,7 +301,8 @@ class User implements UserInterface, \Serializable
      */
     public function getStateLabel()
     {
-        return self::getStates()[$this->getType()];
+        $states = array_flip(self::getStates());
+        return $states[$this->getState()];
     }
 
     /**
@@ -406,9 +407,9 @@ class User implements UserInterface, \Serializable
     public static function getStates()
     {
         return array(
-            self::STATE_PENDING  => 'Pending',
-            self::STATE_ACTIVE   => 'Active',
-            self::STATE_DISABLED => 'Disabled',
+            'Pending'  => self::STATE_PENDING,
+            'Active'   => self::STATE_ACTIVE,
+            'Disabled' => self::STATE_DISABLED,
         );
     }
 

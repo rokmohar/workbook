@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\UserType;
-use CoreBundle\Entity\UserInterface;
+use CoreBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,19 +45,19 @@ class AccountController extends Controller
      */
     public function registerAction(Request $request)
     {
-        $userForm = $this->createForm(UserType::class, null, array(
+        // Create an empty object
+        $user = new User();
+
+        // Create a form
+        $userForm = $this->createForm(UserType::class, $user, array(
             'validation_groups' => ['register'],
         ));
         $userForm->handleRequest($request);
 
         if ($userForm->isSubmitted() &&$userForm->isValid()) {
-            /** @var \CoreBundle\Entity\UserInterface $user */
-            $user = $userForm->getData();
-            $user->setState(UserInterface::STATE_ACTIVE);
-
-            /** @var \CoreBundle\Doctrine\UserManagerInterface $manager */
-            $manager = $this->get('workbook.user_manager');
-            $manager->updateUser($user);
+            /** @var \CoreBundle\Service\UserServiceInterface $userService */
+            $userService = $this->get('workbook.user_service');
+            $userService->createUser($user);
 
             return $this->redirectToRoute('login');
         }

@@ -58,6 +58,11 @@ interface PostCommentInterface
     public function setState($state);
 
     /**
+     * @return string
+     */
+    public function getStateLabel();
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt();

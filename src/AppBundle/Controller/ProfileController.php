@@ -11,44 +11,48 @@ use CoreBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 class ProfileController extends Controller
 {
     /**
-     * @param \CoreBundle\Entity\User $user
+     * @param \CoreBundle\Entity\User $profile
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/profile/{id}", name="profile")
      */
-    public function indexAction(User $user, Request $request)
+    public function indexAction(User $profile, Request $request)
     {
         /** @var \CoreBundle\Doctrine\PostManagerInterface $manager */
         $manager = $this->get('workbook.post_manager');
 
-        $postForm = $this->createForm(PostType::class, new Post(), array(
+        // Create an empty object
+        $post = new Post();
+
+        // Create a form
+        $postForm = $this->createForm(PostType::class, $post, array(
+            'state_disabled' => true,
             'validation_groups' => ['create'],
         ));
         $postForm->handleRequest($request);
 
-        /** @var \CoreBundle\Entity\UserInterface $self */
-        $self = $this->getUser();
+        /** @var \CoreBundle\Entity\UserInterface $user */
+        $user = $this->getUser();
 
         if ($postForm->isSubmitted()) {
-            if (!$user->isEqual($self)) {
+            if (!$profile->isEqual($user)) {
                 throw new \RuntimeException();
             }
 
             if ($postForm->isValid()) {
+                /** @var \CoreBundle\Service\PostServiceInterface $postService */
+                $postService = $this->get('workbook.post_service');
+                $postService->createPost($post, $user);
 
-                /** @var \CoreBundle\Entity\PostInterface $post */
-                $post = $postForm->getData();
-                $post->setUser($self);
-                $post->setState(PostInterface::STATE_ACTIVE);
-
-                $manager->updatePost($post);
-
-                return $this->redirectToRoute('profile', ['id' => $user->getId()]);
+                return $this->redirectToRoute('profile', ['id' => $profile->getId()]);
             }
         }
 
@@ -57,8 +61,8 @@ class ProfileController extends Controller
 
         return $this->render('AppBundle:Profile:index.html.twig', array(
             'postForm' => $postForm->createView(),
-            'timeline' => $repository->findPostsByUser($user, $self),
-            'user' => $user,
+            'profile' => $profile,
+            'timeline' => $repository->findPostsByUser($profile, $user),
         ));
     }
 }

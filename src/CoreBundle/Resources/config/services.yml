@@ -1,0 +1,23 @@
+parameters:
+    workbook.post_service_class: CoreBundle\Service\PostService
+    workbook.post_comment_service_class: CoreBundle\Service\PostCommentService
+    workbook.user_service_class: CoreBundle\Service\UserService
+
+services:
+    workbook.post_service:
+        class: "%workbook.post_service_class%"
+        arguments:
+            - "@workbook.post_manager"
+            - "@security.acl.provider"
+
+    workbook.post_comment_service:
+        class: "%workbook.post_comment_service_class%"
+        arguments:
+            - "@workbook.post_comment_manager"
+            - "@security.acl.provider"
+
+    workbook.user_service:
+        class: "%workbook.user_service_class%"
+        arguments:
+            - "@workbook.user_manager"
+            - "@security.acl.provider"
