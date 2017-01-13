@@ -22,36 +22,36 @@ class UserType extends AbstractType
         $builder
             ->add('email', TextType::class, array(
                 'disabled' => $options['email_disabled'],
-                'label' => 'Email address',
+                'label' => 'form.user.email',
                 'required' => true,
                 'trim' => true,
             ))
             ->add('password', RepeatedType::class, array(
                 'disabled' => $options['password_disabled'],
                 'first_options' => array(
-                    'label' => 'Password',
+                    'label' => 'form.user.password',
                 ),
                 'property_path' => 'plainPassword',
                 'required' => true,
                 'second_options' => array(
-                    'label' => 'Confirm password',
+                    'label' => 'form.user.confirm_password',
                 ),
                 'type' => PasswordType::class,
             ))
             ->add('name', TextType::class, array(
                 'disabled' => $options['name_disabled'],
-                'label' => 'Name',
+                'label' => 'form.user.name',
                 'required' => true,
                 'trim' => true,
             ))
             ->add('state', ChoiceType::class, array(
                 'choices'  => User::getStates(),
                 'disabled' => $options['state_disabled'],
-                'label' => 'State',
+                'label' => 'form.user.state',
                 'required' => true,
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Submit',
+                'label' => 'form.user.submit',
             ))
         ;
     }

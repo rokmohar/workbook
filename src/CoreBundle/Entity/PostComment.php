@@ -222,8 +222,8 @@ class PostComment implements PostCommentInterface
     public static function getStates()
     {
         return array(
-            'Active'   => self::STATE_ACTIVE,
-            'Disabled' => self::STATE_DISABLED,
+            'entity.post_comment.states.active'   => self::STATE_ACTIVE,
+            'entity.post_comment.states.disabled' => self::STATE_DISABLED,
         );
     }
 }

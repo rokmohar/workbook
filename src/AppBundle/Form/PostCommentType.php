@@ -22,7 +22,7 @@ class PostCommentType extends AbstractType
         $builder
             ->add('content', TextareaType::class, array(
                 'disabled' => $options['content_disabled'],
-                'label' => 'What is on your mind?',
+                'label' => 'form.post_comment.content',
                 'required' => true,
                 'trim' => true,
             ))
@@ -30,11 +30,11 @@ class PostCommentType extends AbstractType
                 'choices'  => PostComment::getStates(),
                 'disabled' => $options['state_disabled'],
                 'empty_data'  => null,
-                'label' => 'State',
+                'label' => 'form.post_comment.state',
                 'required' => true,
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Submit',
+                'label' => 'form.post_comment.submit',
             ))
         ;
     }

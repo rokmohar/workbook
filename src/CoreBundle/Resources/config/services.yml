@@ -4,6 +4,12 @@ parameters:
     workbook.user_service_class: CoreBundle\Service\UserService
 
 services:
+    workbook.locale_listener:
+        class: CoreBundle\EventListener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+            - { name: kernel.event_subscriber }
+
     workbook.post_service:
         class: "%workbook.post_service_class%"
         arguments:

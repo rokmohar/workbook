@@ -1,0 +1,94 @@
+header:
+    home: Domov
+    profile: Moj profil
+    logout: Odjava
+
+entity:
+  post:
+      id: ID
+      user: Avtor
+      content: Vsebina
+      type: Vrsta
+      privacy: Zasebnost
+      state: Stanje
+      created_at: Ustvarjeno
+      updated_at: Posodobljeno
+      comments: Komentarji
+      reactions: Všečki
+      types:
+          post: Tekstovna Objava
+          image: Zunanja slika
+          youtube: Youtube video
+      privacies:
+          public: Javno
+          friends: Prijatelji
+          private: Zasebno
+      states:
+          active: Aktivno
+          disabled: Onemogočeno
+
+  post_comment:
+      id: ID
+      post: Objava
+      respondent: Avtor
+      content: Vsebina
+      state: Stanje
+      created_at: Ustvarjeno
+      updated_at: Posodobljeno
+      states:
+          active: Aktivno
+          disabled: Onemogočeno
+
+  user:
+      id: ID
+      email: E-poštni naslov
+      password: Geslo
+      name: Ime in priimek
+      about: O meni
+      avatar: Prikazna slika
+      state: Stanje
+      created_at: Ustvarjeno
+      updated_at: Posodobljeno
+      friends: Prijatelji
+      posts: Objave
+      states:
+          pending: Čakajoče
+          active: Aktivno
+          disabled: Onemogočeno
+
+form:
+    post:
+        content: O čem razmišljaš?
+        type: Vrsta
+        privacy: Zasebnost
+        state: Stanje
+        submit: Nadaljuj
+
+    post_comment:
+        content: O čem razmišljaš?
+        state: Stanje
+        submit: Nadaljuj
+
+    user:
+        email: E-poštni naslov
+        password: Geslo
+        confirm_password: Ponovi geslo
+        name: Ime in priimek
+        state: Stanje
+        submit: Nadaljuj
+
+post:
+    like: Všeč mi je
+    unlike: Ni mi všeč
+    view: Pogled
+    edit: Urejanje
+    delete: Odstrani
+
+user:
+    login: Prijavi se
+    register: Ustvari račun
+    no_friends: Brez prijateljev.
+    add_friend: Dodaj prijatelja
+    remove_friend: Odstrani prijatelja
+    edit_profile: Urejanje profila
+    empty_timeline: Ni objav na zidu.

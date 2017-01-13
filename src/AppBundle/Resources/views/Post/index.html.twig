@@ -22,9 +22,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="btn-group pull-right" role="group">
-                        <a href="{{ path('post', { id: post.id }) }}" class="btn btn-default">View</a>
+                        <a href="{{ path('post', { id: post.id }) }}" class="btn btn-default">{{ 'post.view'|trans }}</a>
                         {% if post.author(app.user) %}
-                            <a href="{{ path('post_edit', { id: post.id }) }}" class="btn btn-default">Edit</a>
+                            <a href="{{ path('post_edit', { id: post.id }) }}" class="btn btn-default">{{ 'post.edit'|trans }}</a>
                         {% endif %}
                     </div>
                     <a href="{{ path('profile', { id: post.user.id }) }}" class="panel-profile-img pull-left">
@@ -42,6 +42,7 @@
                             {{ post.createdAt|time_ago }}
                         </div>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
                 {% if post.type == 10 %}
                     <div class="panel-body panel-video">
@@ -58,17 +59,17 @@
                 {% endif %}
                 <div class="panel-footer" style="color: #999;">
                     <div>
-                        <span data-post="{{ post.id }}" class="comment-count">{{ post.comments|length }}</span> Comments
+                        {{ ('entity.post.comments'|trans) ~ ':' }} <span data-post="{{ post.id }}" class="comment-count">{{ post.comments|length }}</span>
                         -
-                        <span data-post="{{ post.id }}" class="like-count">{{ post.reactions|length }}</span> Likes
+                        {{ ('entity.post.reactions'|trans) ~ ':' }} <span data-post="{{ post.id }}" class="like-count">{{ post.reactions|length }}</span>
                     </div>
                     <div>
                         {% if post.hasReaction(app.user) %}
-                            <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">Unlike</a>
-                            <a href="#" data-trigger="post-like" data-href="{{ path('api_delete_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}" style="display: none;">Like</a>
+                            <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">{{ 'post.unlike'|trans }}</a>
+                            <a href="#" data-trigger="post-like" data-href="{{ path('api_delete_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}" style="display: none;">{{ 'post.like'|trans }}</a>
                         {% else %}
-                            <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}" style="display: none;">Unlike</a>
-                            <a href="#" data-trigger="post-like" data-href="{{ path('api_delete_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">Like</a>
+                            <a href="#" data-trigger="post-unlike" data-href="{{ path('api_post_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}" style="display: none;">{{ 'post.unlike'|trans }}</a>
+                            <a href="#" data-trigger="post-like" data-href="{{ path('api_delete_reaction') }}" data-post="{{ post.id }}" data-user="{{ app.user.id }}">{{ 'post.like'|trans }}</a>
                         {% endif %}
                     </div>
                 </div>
@@ -111,7 +112,7 @@
                         } }) }}
                     </div>
                     <div class="form-group">
-                        <button id="send" type="submit" class="btn btn-primary pull-right">Submit</button>
+                        {{ form_widget(commentForm.submit, { attr: { 'class': 'btn btn-primary pull-right' }}) }}
                         <div class="clearfix"></div>
                     </div>
                 </div>

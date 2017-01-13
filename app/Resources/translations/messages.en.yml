@@ -1,0 +1,94 @@
+header:
+    home: Home
+    profile: My profile
+    logout: Logout
+
+entity:
+  post:
+      id: ID
+      user: User
+      content: Content
+      type: Type
+      privacy: Privacy
+      state: State
+      createdAt: Created at
+      updatedAt: Updated at
+      comments: Comments
+      reactions: Likes
+      types:
+          post: Text Post
+          image: External image
+          youtube: Youtube video
+      privacies:
+          public: Public
+          friends: Friends
+          private: Private
+      states:
+          active: Active
+          disabled: Disabled
+
+  post_comment:
+      id: ID
+      post: Post
+      respondent: Respondent
+      content: Content
+      state: State
+      created_at: Created at
+      updated_at: Updated at
+      states:
+          active: Active
+          disabled: Disabled
+
+  user:
+      id: ID
+      email: Email address
+      password: Password
+      name: Name
+      about: About me
+      avatar: Avatar
+      state: State
+      created_at: Created at
+      updated_at: Updated at
+      friends: Friends
+      posts: Posts
+      states:
+          pending: Pending
+          active: Active
+          disabled: Disabled
+
+form:
+    post:
+        content: What is on your mind?
+        type: Type
+        privacy: Privacy
+        state: State
+        submit: Submit
+
+    post_comment:
+        content: What is on your mind?
+        state: State
+        submit: Submit
+
+    user:
+        email: Email address
+        password: Password
+        confirm_password: Confirm password
+        name: Name
+        state: State
+        submit: Submit
+
+post:
+    like: Like
+    unlike: Unlike
+    view: View
+    edit: Edit
+    delete: Delete
+
+user:
+    login: Sign in
+    register: Register
+    no_friends: No friends.
+    add_friend: Add friend
+    remove_friend: Remove friend
+    edit_profile: Edit profile
+    empty_timeline: No posts on timeline.

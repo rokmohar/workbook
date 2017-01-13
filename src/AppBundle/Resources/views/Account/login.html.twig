@@ -22,21 +22,21 @@
         <form class="panel panel-default" action="{{ path('login') }}" method="POST">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="panel-heading">
-                Sign in
+                {{ 'user.login'|trans }}
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <label for="email" class="sr-only">Email address</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Email address" value="{{ lastUsername }}" required>
+                    <label for="email" class="sr-only">{{ 'user.form.email'|trans }}</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="{{ 'form.user.email'|trans }}" value="{{ lastUsername }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    <label for="password" class="sr-only">{{ 'user.form.password'|trans }}</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="{{ 'form.user.password'|trans }}" required>
                 </div>
             </div>
             <div class="panel-footer panel-action">
-                <a href="{{ path('register') }}" class="btn btn-default" type="submit">Create account</a>
-                <button class="btn btn-primary pull-right" type="submit">Sign in</button>
+                <a href="{{ path('register') }}" class="btn btn-default" type="submit">{{ 'user.register'|trans }}</a>
+                <button class="btn btn-primary pull-right" type="submit">{{ 'user.login'|trans }}</button>
                 <div class="clearfix"></div>
             </div>
         </form>

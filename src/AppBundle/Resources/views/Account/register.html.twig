@@ -34,7 +34,7 @@
         {{ form_widget(userForm._token) }}
         <div class="panel panel-default">
             <div class="panel-heading">
-                Register
+                {{ 'user.register'|trans }}
             </div>
             <div class="panel-body">
                 <div class="{{ 'form-group' ~ (userForm.name.vars.errors|length ? ' has-error') }}">
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="panel-footer panel-action">
-                <a href="{{ path('login') }}" class="btn btn-default" type="submit">I have account</a>
+                <a href="{{ path('login') }}" class="btn btn-default" type="submit">{{ 'user.login'|trans }}</a>
                 {{ form_widget(userForm.submit, { 'attr': { 'class': 'btn btn-primary pull-right' } }) }}
                 <div class="clearfix"></div>
             </div>

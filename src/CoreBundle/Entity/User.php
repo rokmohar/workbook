@@ -407,9 +407,9 @@ class User implements UserInterface, \Serializable
     public static function getStates()
     {
         return array(
-            'Pending'  => self::STATE_PENDING,
-            'Active'   => self::STATE_ACTIVE,
-            'Disabled' => self::STATE_DISABLED,
+            'entity.user.states.pending'  => self::STATE_PENDING,
+            'entity.user.states.active'   => self::STATE_ACTIVE,
+            'entity.user.states.disabled' => self::STATE_DISABLED,
         );
     }
 

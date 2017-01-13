@@ -358,9 +358,9 @@ class Post implements PostInterface
     public static function getTypes()
     {
         return array(
-            'Post'           => self::TYPE_POST,
-            'External Image' => self::TYPE_IMAGE,
-            'Youtube Video'  => self::TYPE_YOUTUBE,
+            'entity.post.types.post'    => self::TYPE_POST,
+            'entity.post.types.image'   => self::TYPE_IMAGE,
+            'entity.post.types.youtube' => self::TYPE_YOUTUBE,
         );
     }
 
@@ -370,9 +370,9 @@ class Post implements PostInterface
     public static function getPrivacies()
     {
         return array(
-            'Public'  => self::PRIVACY_PUBLIC,
-            'Friends' => self::PRIVACY_FRIENDS,
-            'Private' => self::PRIVACY_PRIVATE,
+            'entity.post.privacies.public'  => self::PRIVACY_PUBLIC,
+            'entity.post.privacies.friends' => self::PRIVACY_FRIENDS,
+            'entity.post.privacies.private' => self::PRIVACY_PRIVATE,
         );
     }
 
@@ -382,8 +382,8 @@ class Post implements PostInterface
     public static function getStates()
     {
         return array(
-            'Active'   => self::STATE_ACTIVE,
-            'Disabled' => self::STATE_DISABLED,
+            'entity.post.states.active'   => self::STATE_ACTIVE,
+            'entity.post.states.disabled' => self::STATE_DISABLED,
         );
     }
 

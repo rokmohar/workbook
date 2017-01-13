@@ -10,7 +10,7 @@ parameters:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator: { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -47,7 +47,7 @@ assetic:
     filters:
         cssrewrite: ~
         minifycsscompressor: ~
-        jsminplus: ~
+        jsmin: ~
 
     assets:
         styles:
@@ -62,7 +62,7 @@ assetic:
                 - "frontend/vendor/bootstrap/js/bootstrap.js"
                 - "frontend/vendor/autosize/autosize.js"
                 - "frontend/scripts/main.js"
-            filters: ['jsminplus']
+            filters: ['jsmin']
 
 
 # Doctrine Configuration

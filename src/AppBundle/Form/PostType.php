@@ -21,7 +21,7 @@ class PostType extends AbstractType
         $builder
             ->add('content', TextareaType::class, array(
                 'disabled' => $options['content_disabled'],
-                'label' => 'What is on your mind?',
+                'label' => 'form.post.content',
                 'required' => true,
                 'trim' => true,
             ))
@@ -29,7 +29,7 @@ class PostType extends AbstractType
                 'choices'  => Post::getTypes(),
                 'disabled' => $options['type_disabled'],
                 'empty_data'  => null,
-                'label' => 'Type',
+                'label' => 'form.post.type',
                 'multiple' => false,
                 'required' => true,
             ))
@@ -37,18 +37,18 @@ class PostType extends AbstractType
                 'choices'  => Post::getPrivacies(),
                 'disabled' => $options['privacy_disabled'],
                 'empty_data'  => null,
-                'label' => 'Privacy',
+                'label' => 'form.post.privacy',
                 'required' => true,
             ))
             ->add('state', ChoiceType::class, array(
                 'choices'  => Post::getStates(),
                 'disabled' => $options['state_disabled'],
                 'empty_data'  => null,
-                'label' => 'State',
+                'label' => 'form.post.state',
                 'required' => true,
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Submit',
+                'label' => 'form.post.submit',
             ))
         ;
     }
