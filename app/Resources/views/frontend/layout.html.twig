@@ -8,14 +8,12 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
         {% block stylesheets %}
-            <title>{% block title %}Welcome!{% endblock %}</title>
-
-            <!-- Bootstrap CSS -->
-            <link href="{{ asset('/frontend/vendor/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-
-            <!-- Custom CSS -->
-            <link href="{{ asset('/frontend/styles/main.css') }}" rel="stylesheet">
+            {% stylesheets '@styles' %}
+            <link rel="stylesheet" href="{{ asset_url }}">
+            {% endstylesheets %}
         {% endblock %}
 
         {% block head_javascripts %}
@@ -66,17 +64,9 @@
     {% block footer %}{% endblock %}
 
     {% block javascripts %}
-        <!-- jQuery JavaScript -->
-        <script src="{{ asset('/frontend/vendor/jquery/jquery-3.1.1.min.js') }}"></script>
-
-        <!-- Bootstrap JavaScript -->
-        <script src="{{ asset('/frontend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-
-        <!-- Autosize JavaScript -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/autosize.js/3.0.20/autosize.min.js"></script>
-
-        <!-- Custom JavaScript -->
-        <script src="{{ asset('/frontend/scripts/main.js') }}"></script>
+        {% javascripts '@scripts' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
     {% endblock %}
     </body>
 {% endblock %}
