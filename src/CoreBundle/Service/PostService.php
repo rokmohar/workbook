@@ -83,7 +83,7 @@ class PostService implements PostServiceInterface
     {
         $aclProvider = $this->aclProvider;
 
-        // Creating a ACL
+        // Create ACL
         $objectIdentity = ObjectIdentity::fromDomainObject($post);
         $acl = $aclProvider->createAcl($objectIdentity);
 
@@ -102,7 +102,7 @@ class PostService implements PostServiceInterface
     {
         $aclProvider = $this->aclProvider;
 
-        // Delete the ACL
+        // Delete ACL
         $objectIdentity = ObjectIdentity::fromDomainObject($post);
         $aclProvider->deleteAcl($objectIdentity);
     }

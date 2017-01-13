@@ -25,7 +25,7 @@ security:
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
-            pattern: ^/(_(profiler|wdt)|bundles|images|scripts|styles|vendor)/
+            pattern: ^/(_(controller|profiler|wdt)|assetic|backend|bundles|css|frontend|js)
             security: false
 
         api:

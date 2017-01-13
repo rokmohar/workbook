@@ -85,7 +85,7 @@ class PostCommentService implements PostCommentServiceInterface
     {
         $aclProvider = $this->aclProvider;
 
-        // Creating a ACL
+        // Create ACL
         $objectIdentity = ObjectIdentity::fromDomainObject($comment);
         $acl = $aclProvider->createAcl($objectIdentity);
 
@@ -104,7 +104,7 @@ class PostCommentService implements PostCommentServiceInterface
     {
         $aclProvider = $this->aclProvider;
 
-        // Delete the ACL
+        // Delete ACL
         $objectIdentity = ObjectIdentity::fromDomainObject($comment);
         $aclProvider->deleteAcl($objectIdentity);
     }

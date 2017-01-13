@@ -63,6 +63,12 @@ class UserService implements UserServiceInterface
      */
     public function updateUser(UserInterface $user)
     {
+        $this->logger->info('Updating the user.', array(
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'name' => $user->getName(),
+        ));
+
         $this->userManager->updateUser($user);
 
         // todo: update user security identity
@@ -74,6 +80,7 @@ class UserService implements UserServiceInterface
     public function deleteUser(UserInterface $user)
     {
         $this->logger->notice('Deleting the user.', array(
+            'id' => $user->getId(),
             'email' => $user->getEmail(),
             'name' => $user->getName(),
         ));
@@ -100,9 +107,15 @@ class UserService implements UserServiceInterface
      */
     protected function createAcl(UserInterface $user, $mask = MaskBuilder::MASK_OWNER)
     {
+        $this->logger->info('Creating ACL for the user.', array(
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'name' => $user->getName(),
+        ));
+
         $aclProvider = $this->aclProvider;
 
-        // Creating a ACL
+        // Create ACL
         $objectIdentity = ObjectIdentity::fromDomainObject($user);
         $acl = $aclProvider->createAcl($objectIdentity);
 
@@ -119,9 +132,15 @@ class UserService implements UserServiceInterface
      */
     protected function deleteAcl(UserInterface $user)
     {
+        $this->logger->info('Deleting ACL for the user.', array(
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'name' => $user->getName(),
+        ));
+
         $aclProvider = $this->aclProvider;
 
-        // Delete the ACL
+        // Delete ACL
         $objectIdentity = ObjectIdentity::fromDomainObject($user);
         $aclProvider->deleteAcl($objectIdentity);
     }

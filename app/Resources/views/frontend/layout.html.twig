@@ -12,10 +12,10 @@
             <title>{% block title %}Welcome!{% endblock %}</title>
 
             <!-- Bootstrap CSS -->
-            <link href="/frontend/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+            <link href="{{ asset('/frontend/vendor/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
 
             <!-- Custom CSS -->
-            <link href="/frontend/styles/main.css" rel="stylesheet">
+            <link href="{{ asset('/frontend/styles/main.css') }}" rel="stylesheet">
         {% endblock %}
 
         {% block head_javascripts %}
@@ -67,16 +67,16 @@
 
     {% block javascripts %}
         <!-- jQuery JavaScript -->
-        <script src="/frontend/vendor/jquery/jquery-3.1.1.min.js"></script>
+        <script src="{{ asset('/frontend/vendor/jquery/jquery-3.1.1.min.js') }}"></script>
 
         <!-- Bootstrap JavaScript -->
-        <script src="/frontend/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="{{ asset('/frontend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
         <!-- Autosize JavaScript -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/autosize.js/3.0.20/autosize.min.js"></script>
 
         <!-- Custom JavaScript -->
-        <script src="/frontend/scripts/main.js"></script>
+        <script src="{{ asset('/frontend/scripts/main.js') }}"></script>
     {% endblock %}
     </body>
 {% endblock %}
