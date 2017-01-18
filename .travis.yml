@@ -31,8 +31,8 @@ matrix:
 # Define an environment variable
 env:
   - SYMFONY_VERSION="3.2.*" DB=mysql
-# Update composer
 
+# Update composer
 before-install:
   - composer self-update
 
@@ -43,7 +43,7 @@ install:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - php bin/console doctrine:database:create --env=test
   - php bin/console doctrine:schema:create --env=test
-  - php bin/console doctrine:fixtures:load -n --env=test
+  - php bin/console doctrine:migrations:migrate --env=test
 
 # Run script
 script:
