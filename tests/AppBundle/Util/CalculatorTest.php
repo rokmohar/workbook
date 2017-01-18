@@ -2,6 +2,9 @@
 
 namespace Tests\AppBundle\Util;
 
+include 'src/CoreBundle/Util/CalculatorInterface.php';
+include 'src/CoreBundle/Util/Calculator.php';
+
 use AppBundle\Util\Calculator;
 
 class CalculatorTest extends \PHPUnit_Framework_TestCase
