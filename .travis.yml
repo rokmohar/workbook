@@ -12,10 +12,10 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-#php:
-#    - 5.6
-#    - 7.0
-#    #- hhvm
+php:
+    - 5.6
+    - 7.0
+#    - hhvm
 
 # Matrix to test in every php version
 matrix:
@@ -24,7 +24,7 @@ matrix:
   include:
     - php: 5.6
     - php: 7.0
-    #- php: hhvm
+  #  - php: hhvm
   #allow_failures:
   #  - php: hhvm
 
