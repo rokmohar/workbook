@@ -1,22 +1,50 @@
 language: php
 
-php:
-    - 5.6
-    - 7.0
-
+# Allows use container-based infrastructure
 sudo: false
 
+# Start mysql service
+services:
+  - mysql
+
+# Cache composer packages so "composer install" is faster
 cache:
   directories:
     - $HOME/.composer/cache/files
 
+#php:
+#    - 5.6
+#    - 7.0
+#    #- hhvm
+
+# Matrix to test in every php version
+matrix:
+  # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
+  fast_finish: true
+  include:
+    - php: 5.6
+    - php: 7.0
+    #- php: hhvm
+  #allow_failures:
+  #  - php: hhvm
+
+# Define an environment variable
 env:
-  - SYMFONY_VERSION=3.2.*
+  - SYMFONY_VERSION="3.2.*" DB=mysql
+# Update composer
 
-before_install:
+before-install:
   - composer self-update
-  - composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update
 
-install: composer update --prefer-source
+# Install composer dependencies,
+# Create database, schema and
+install:
+  - composer install
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:schema:create --env=test
+  - php bin/console doctrine:fixtures:load -n --env=test
 
-script: phpunit --coverage-text
+# Run script
+script:
+  - phpunit
