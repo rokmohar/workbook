@@ -1,4 +1,4 @@
-#language: php
+language: php
 
 # Allows use container-based infrastructure
 sudo: false
@@ -12,16 +12,16 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-#php:
-#    - 7.0
+php:
+    - 7.0
 #    - hhvm
 
 # Matrix to test in every php version
-matrix:
+#matrix:
   # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
-  fast_finish: true
-  include:
-    - php: 7.0
+#  fast_finish: true
+#  include:
+#    - php: 7.0
   #  - php: hhvm
   #allow_failures:
   #  - php: hhvm
