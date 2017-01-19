@@ -14,7 +14,6 @@ cache:
 
 php:
     - 7.0
-    - hhvm
 
 # Define an environment variable
 env:

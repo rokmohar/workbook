@@ -21,7 +21,7 @@ class Version20170108181840 extends AbstractMigration
         $this->addSql('ALTER TABLE user_friends ADD CONSTRAINT FK_79E36E636A5458E8 FOREIGN KEY (friend_id) REFERENCES users (id)');
 
         // Dummy data
-        $this->addSql('INSERT INTO users (`email`, `password`, `name`, `state`, `created_at`, `updated_at`) VALUES (\'user1@example.org\', \'$2y$13$ksxomju0MsOnWK9gXhpuSOlcauwc4XeF3/mRSg5j1vgFpr7JXPsUC\', \'Rok Mohar\', \'1\', NOW(), NOW())');
+        $this->addSql('INSERT INTO users (`email`, `password`, `name`, `state`, `created_at`, `updated_at`) VALUES (\'user1@example.org\', \'$2y$13$ksxomju0MsOnWK9gXhpuSOlcauwc4XeF3/mRSg5j1vgFpr7JXPsUC\', \'User One\', \'5\', NOW(), NOW())');
     }
 
     /**
