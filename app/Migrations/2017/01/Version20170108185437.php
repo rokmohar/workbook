@@ -16,6 +16,9 @@ class Version20170108185437 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE admins (id INT UNSIGNED AUTO_INCREMENT NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX UNIQ_A2E0150FE7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+
+        // Dummy data
+        $this->addSql('INSERT INTO admins (`email`, `password`, `created_at`, `updated_at`) VALUES (\'user1@example.org\', \'$2y$13$ksxomju0MsOnWK9gXhpuSOlcauwc4XeF3/mRSg5j1vgFpr7JXPsUC\', NOW(), NOW())');
     }
 
     /**
