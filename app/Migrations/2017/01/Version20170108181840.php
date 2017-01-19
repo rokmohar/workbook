@@ -19,6 +19,9 @@ class Version20170108181840 extends AbstractMigration
         $this->addSql('CREATE TABLE user_friends (user_id INT UNSIGNED NOT NULL, friend_id INT UNSIGNED NOT NULL, INDEX IDX_79E36E63A76ED395 (user_id), INDEX IDX_79E36E636A5458E8 (friend_id), PRIMARY KEY(user_id, friend_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE user_friends ADD CONSTRAINT FK_79E36E63A76ED395 FOREIGN KEY (user_id) REFERENCES users (id)');
         $this->addSql('ALTER TABLE user_friends ADD CONSTRAINT FK_79E36E636A5458E8 FOREIGN KEY (friend_id) REFERENCES users (id)');
+
+        // Dummy data
+        $this->addSql('INSERT INTO users (`email`, `password`, `name`, `state`, `created_at`, `updated_at`) VALUES (\'user1@example.org\', \'$2y$13$ksxomju0MsOnWK9gXhpuSOlcauwc4XeF3/mRSg5j1vgFpr7JXPsUC\', \'Rok Mohar\', \'1\', NOW(), NOW())');
     }
 
     /**
